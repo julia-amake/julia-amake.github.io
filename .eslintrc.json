@@ -1,51 +1,161 @@
 {
-    "env": {
-        "browser": true,
-        "node": true,
-        "commonjs": true,
-        "es2021": true
-    },
-    "extends": [
-        "plugin:react/jsx-runtime", // позволяет не импортировать реакт
-        "plugin:react-hooks/recommended", //поддержка хуков
-        "plugin:import/recommended", // подсказки при импорте
-        // "airbnb",
-        "prettier", // отключает конфликты с prettier
-        "plugin:prettier/recommended",
-        "plugin:jest/recommended",
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/jsx-runtime",
+    // позволяет не импортировать реакт
+    "plugin:react-hooks/recommended",
+    //поддержка хуков
+    "plugin:import/recommended",
+    // подсказки при импорте
+    // "airbnb",
+    "prettier",
+    // отключает конфликты с prettier
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "overrides": [],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "unused-imports",
+    "amake-plugin"
+  ],
+  "rules": {
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/triple-slash-reference": "error",
+    "react/no-unstable-nested-components": "warn",
+    "react/jsx-max-props-per-line": [
+      "error",
+      {
+        "maximum": 3,
+        "when": "multiline"
+      }
     ],
-    "overrides": [],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
+    "react/jsx-uses-vars": "error",
+    "react/jsx-uses-react": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "unused-imports/no-unused-imports": "error",
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true
+      }
     ],
-    "rules": {
-        "@typescript-eslint/no-var-requires": 0,
-        "@typescript-eslint/triple-slash-reference": "error",
-        "react/jsx-uses-vars": "error",
-        "react/jsx-uses-react": "error"
-    },
-    "settings": {
-        "react": {
-            "version": "detect"
-        },
-        "import/resolver": {
-            "node": {
-                "paths": ["."],
-                "extensions": [
-                    ".js",
-                    ".jsx",
-                    ".ts",
-                    ".tsx"
-                ]
-            }
+    "import/order": [
+      "error",
+      {
+        "pathGroups": [
+          {
+            "pattern": "src/shared/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "src/entities/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "src/features/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "src/widgets/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "src/pages/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "src/app/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "src/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "../+**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "./**.*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "./**.module.*",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "newlines-between": "never",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
         }
+      }
+    ],
+    "import/no-cycle": "warn",
+    "amake-plugin/path-checker": [
+      "error",
+      {
+        "alias": "@"
+      }
+    ],
+    "amake-plugin/public-api-imports": [
+      "error",
+      {
+        "alias": "src",
+        "testFilesPatterns": []
+      }
+    ],
+    "amake-plugin/layer-imports": [
+      "error",
+      {
+        "alias": "src",
+        "ignoreImportPatterns": []
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "."
+        ],
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
     }
+  }
 }
