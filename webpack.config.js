@@ -16,27 +16,32 @@ module.exports = (_, args) => {
 
   return {
     entry: './index.tsx',
-    devtool: 'source-map',
+    devtool: isDev ? 'source-map' : undefined,
     context: src,
-    devServer: {
-      open: true,
-      port,
-      hot: true,
-      historyApiFallback: true,
-      host,
-    },
+    devServer: isDev
+      ? {
+          open: true,
+          port,
+          hot: true,
+          historyApiFallback: true,
+          host,
+        }
+      : undefined,
     resolve: {
       modules: [src, 'node_modules'],
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
         src,
       },
+      preferAbsolute: true,
+      mainFiles: ['index'],
     },
     output: {
       path: dist,
       publicPath: isDev ? `http://${host}:${port}/` : undefined /* <- прописать данные своего github */,
       filename: `js/[name]_[contenthash].js`,
       chunkFilename: `js/[name]_[contenthash].js`,
+      clean: true,
     },
     module: {
       rules: [
@@ -56,12 +61,27 @@ module.exports = (_, args) => {
           ],
         },
         {
-          test: /\.css$/,
+          test: /\.(sc|sa|c)ss$/i,
           use: [
             {
-              loader: MiniCssExtractPlugin.loader,
+              loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             },
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  auto: /.module./,
+                  localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+                },
+              },
+            },
+            'postcss-loader',
+            {
+              loader: 'sass-loader',
+              options: {
+                additionalData: '@import "src/shared/styles/variables/global.scss";',
+              },
+            },
           ],
         },
         {
@@ -69,21 +89,8 @@ module.exports = (_, args) => {
           type: 'asset/inline',
         },
         {
-          test: /\.s[ac]ss$/i,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                modules: {
-                  localIdentName: '[name]_[local]-[hash:base64:5]',
-                },
-              },
-            },
-            'sass-loader',
-          ],
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
         },
       ],
     },
