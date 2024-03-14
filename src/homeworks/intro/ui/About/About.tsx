@@ -1,10 +1,10 @@
 import React from 'react';
+import badge from '../../assets/icons/badge.svg';
 import goals from '../../assets/icons/goals.svg';
 import rocket from '../../assets/icons/rocket.svg';
-import badge from '../../assets/icons/badge.svg';
-import { AboutHeader } from '../AboutHeader';
 import { AboutDetails } from '../AboutDetails';
 import { AboutFooter } from '../AboutFooter';
+import { AboutHeader } from '../AboutHeader';
 import { AboutList } from '../AboutList';
 import s from './About.modules.css';
 

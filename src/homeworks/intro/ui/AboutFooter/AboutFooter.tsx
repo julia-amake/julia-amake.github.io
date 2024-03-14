@@ -1,6 +1,6 @@
 import React from 'react';
-import { links } from './mocks';
 import { AboutLink } from '../AboutLink';
+import { links } from './mocks';
 import s from './AboutFooter.modules.css';
 
 export const AboutFooter = () => {
