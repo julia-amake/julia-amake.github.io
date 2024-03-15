@@ -1,5 +1,5 @@
-import cn from 'clsx';
 import React, { FC } from 'react';
+import cn from 'clsx';
 import { sum } from './sum';
 import './button.css';
 
