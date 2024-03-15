@@ -1,9 +1,9 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const port = 2233;
 const dist = path.join(__dirname, 'dist');
@@ -79,14 +79,24 @@ module.exports = (_, args) => {
             {
               loader: 'sass-loader',
               options: {
-                additionalData: '@import "src/shared/styles/variables/global.scss";',
+                additionalData: '@import "src/shared/styles/common.scss";',
               },
             },
           ],
         },
         {
-          test: /\.svg/,
-          type: 'asset/inline',
+          test: /\.svg$/i,
+          type: 'asset/resource',
+          resourceQuery: /url/, // *.svg?url
+          generator: {
+            filename: 'img/icons/[name][ext]',
+          },
+        },
+        {
+          test: /\.svg$/i,
+          issuer: /\.[jt]sx?$/,
+          resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+          use: ['@svgr/webpack'],
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,

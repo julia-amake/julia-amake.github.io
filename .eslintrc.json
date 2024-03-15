@@ -114,7 +114,8 @@
         }
       }
     ],
-    "import/no-cycle": "warn"
+    "import/no-cycle": "warn",
+    "import/no-unresolved": ["error", { "ignore": ["\\.svg\\?url$"] }]
   },
   "settings": {
     "react": {

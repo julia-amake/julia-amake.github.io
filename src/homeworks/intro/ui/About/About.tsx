@@ -1,7 +1,7 @@
 import React from 'react';
-import badge from '../../assets/icons/badge.svg';
-import goals from '../../assets/icons/goals.svg';
-import rocket from '../../assets/icons/rocket.svg';
+import badge from '../../assets/icons/badge.svg?url';
+import goals from '../../assets/icons/goals.svg?url';
+import rocket from '../../assets/icons/rocket.svg?url';
 import { AboutDetails } from '../AboutDetails';
 import { AboutFooter } from '../AboutFooter';
 import { AboutHeader } from '../AboutHeader';
