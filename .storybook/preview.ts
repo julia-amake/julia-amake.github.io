@@ -1,8 +1,9 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from '@storybook/react';
+import { StyleDecorator } from 'src/shared/config/storybook/StyleDecorator';
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
+    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -10,6 +11,7 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [StyleDecorator],
 };
 
 export default preview;
