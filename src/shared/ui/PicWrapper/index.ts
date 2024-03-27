@@ -1,0 +1,1 @@
+export { PicWrapper } from './PicWrapper';

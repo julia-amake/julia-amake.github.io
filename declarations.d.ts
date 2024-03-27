@@ -6,7 +6,9 @@ declare module '*.jpeg';
 declare module '*.png';
 declare module '*.svg?url';
 
+type SVGType = React.FC<React.SVGProps<SVGSVGElement>>;
+
 declare module '*.svg' {
-  const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>;
+  const ReactComponent: SVGType;
   export default ReactComponent;
 }

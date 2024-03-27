@@ -1,0 +1,14 @@
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include container();
+}

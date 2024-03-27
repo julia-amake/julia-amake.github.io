@@ -1,2 +1,26 @@
+:root {
+  --color-main: #050505;
+  --color-dark-gray: #282828;
+  --color-mid-gray: #a2a2a2;
+  --color-light-gray: #f6f6f6;
+  --color-main-inverted: #FFFFFF;
+  --color-bg-1: #FBF9F7;
+  --color-bg-2: #F3F4F1;
+
+  --header-height: 80px;
+
+  --product-ratio: 1 / 1.25;
+
+  --box-shadow-cards: 0 0 14px -4px rgba(0, 0, 0, 0.05), 0px 32px 48px -8px rgba(0, 0, 0, 0.1);
+}
+
+
+$color-neutral-1: #FCFCFC;
 $color-neutral-2: #F4F4F4;
+$color-neutral-3: #EFEFEF;
+$color-neutral-4: #9A9FA5;
 $color-neutral-6: #272B30;
+
+$color-primary-1: #3772FF;
+
+$color-secondary-4: #B5E4CA;

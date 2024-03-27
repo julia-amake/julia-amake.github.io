@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { About } from './homeworks/intro/index';
+import { About } from 'src/homeworks/intro';
 
 function App() {
   return <About />;
