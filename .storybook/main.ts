@@ -38,6 +38,8 @@ const config = {
       };
     }
 
+    config.plugins?.push(new MiniCssExtractPlugin());
+
     if (config.module?.rules) {
       const imageRule = config.module?.rules?.find((rule) => {
         const test = (rule as { test: RegExp }).test;
@@ -63,7 +65,9 @@ const config = {
               options: {
                 modules: {
                   auto: /.module./,
-                  localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+                  localIdentName: isDev
+                    ? '[path][name]__[local]--[hash:base64:5]'
+                    : '[hash:base64:8]',
                 },
               },
             },
@@ -77,7 +81,17 @@ const config = {
           ],
         },
         {
-          test: /\.svg$/,
+          test: /\.svg$/i,
+          type: 'asset/resource',
+          resourceQuery: /url/, // *.svg?url
+          generator: {
+            filename: 'img/[name][ext]',
+          },
+        },
+        {
+          test: /\.svg$/i,
+          issuer: /\.[jt]sx?$/,
+          resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
           use: ['@svgr/webpack'],
         }
       );

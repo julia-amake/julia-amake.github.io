@@ -38,7 +38,9 @@ module.exports = (_, args) => {
     },
     output: {
       path: dist,
-      publicPath: isDev ? `http://${host}:${port}/` : undefined /* <- прописать данные своего github */,
+      publicPath: isDev
+        ? `http://${host}:${port}/`
+        : undefined /* <- прописать данные своего github */,
       filename: `js/[name]_[contenthash].js`,
       chunkFilename: `js/[name]_[contenthash].js`,
       clean: true,
@@ -71,7 +73,9 @@ module.exports = (_, args) => {
               options: {
                 modules: {
                   auto: /.module./,
-                  localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+                  localIdentName: isDev
+                    ? '[path][name]__[local]--[hash:base64:5]'
+                    : '[hash:base64:8]',
                 },
               },
             },
@@ -89,7 +93,7 @@ module.exports = (_, args) => {
           type: 'asset/resource',
           resourceQuery: /url/, // *.svg?url
           generator: {
-            filename: 'img/icons/[name][ext]',
+            filename: 'img/[name][ext]',
           },
         },
         {
