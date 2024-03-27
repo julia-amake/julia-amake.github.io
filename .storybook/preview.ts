@@ -10,6 +10,12 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    options: {
+      storySort: {
+        method: 'alphabetical',
+        order: ['shared', 'entities', 'features', 'widgets', 'pages', 'app'],
+      },
+    },
   },
   decorators: [StyleDecorator],
 };
