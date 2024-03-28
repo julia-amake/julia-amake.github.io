@@ -1,0 +1,42 @@
+.outer {
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    background: var(--color-main-inverted);
+    box-shadow: 0 0 0 12px var(--color-main-inverted), var(--box-shadow-cards);
+  }
+}
+
+.pic {
+  margin-bottom: 16px;
+}
+
+.content {
+  margin-bottom: 12px;
+}
+
+.price {
+  margin-bottom: 4px;
+  font-weight: 650;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.about {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.title, .desc {
+  display: inline;
+  margin: 0;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+.actions {
+  margin-top: auto;
+  width: 100%;
+}
