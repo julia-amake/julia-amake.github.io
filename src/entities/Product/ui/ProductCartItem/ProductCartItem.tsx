@@ -23,9 +23,6 @@ export const ProductCartItem = ({
   className,
   removeBtn,
 }: ProductCartItemProps) => {
-  if (count <= 0) throw new Error('count должен быть больше 0');
-  if (price <= 0) throw new Error('price должен быть больше 0');
-
   return (
     <div className={cn(s.outer, className)}>
       <div className={s.about}>
