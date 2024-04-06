@@ -111,7 +111,7 @@ module.exports = (_, args) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
-        favicon: './favicon.svg',
+        favicon: './shared/assets/img/logo-amake.svg',
       }),
       new CleanWebpackPlugin(),
       new MiniCssExtractPlugin({
