@@ -71,7 +71,10 @@ export const TextField = ({
     <div className={classNames?.wrapper}>
       <div className={cn(s.fieldWrapper, { [s.fieldWrapper_error]: errorMessage })}>
         {label && (
-          <label className={cn(s.label, { [s.label_top]: isFocused || value })} htmlFor={inputId}>
+          <label
+            className={cn(s.label, { [s.label_top]: isFocused || value || defaultValue })}
+            htmlFor={inputId}
+          >
             {label}
           </label>
         )}

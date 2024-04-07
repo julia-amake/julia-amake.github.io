@@ -23,6 +23,6 @@ export const DefaultValue = Template.bind({});
 export const Error = Template.bind({});
 
 LabelAsPlaceholder.args = { label: 'Введите свой email' };
-DefaultValue.args = { defaultValue: '12345' };
+DefaultValue.args = { label: 'Введите свой email', defaultValue: '12345' };
 Error.args = { label: 'Введите свой email', errorMessage: 'Текст ошибки' };
 NoLabelWithPlaceholder.args = { placeholder: 'Введите свой email' };
