@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import cn from 'clsx';
 import { Button } from 'src/shared/ui/Button';
 import RemoveIcon from 'src/shared/assets/icons/Trash.svg';
@@ -8,13 +8,8 @@ interface RemoveProductFromCartProps {
   className?: string;
 }
 
-export const RemoveProductFromCart = ({ className }: RemoveProductFromCartProps) => {
-  return (
-    <Button
-      className={cn(s.outer, className)}
-      icon={{ element: RemoveIcon }}
-      variant="clean"
-      size="xs"
-    />
-  );
-};
+export const RemoveProductFromCart = memo(({ className }: RemoveProductFromCartProps) => {
+  return <Button className={cn(s.outer, className)} icon={RemoveIcon} variant="clean" size="xs" />;
+});
+
+RemoveProductFromCart.displayName = 'RemoveProductFromCart';

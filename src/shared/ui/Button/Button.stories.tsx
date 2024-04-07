@@ -22,13 +22,13 @@ export const SizeS = { args: { size: 's' } };
 export const SizeM = { args: { size: 'm' } };
 
 export const IconLeft = {
-  args: { icon: { element: Icon, position: 'left' } },
+  args: { icon: Icon, iconPosition: 'left' },
 };
 export const IconRight = {
-  args: { icon: { element: Icon, position: 'right' } },
+  args: { icon: Icon, iconPosition: 'right' },
 };
 export const IconOnly = {
-  args: { label: undefined, icon: { element: Icon } },
+  args: { label: undefined, icon: Icon },
 };
 
 export const Rounded = { args: { rounded: true } };
