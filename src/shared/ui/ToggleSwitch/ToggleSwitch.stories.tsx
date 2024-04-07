@@ -15,50 +15,31 @@ export default meta;
 
 export const Icon = {
   args: {
-    elems: [
-      {
-        title: 'Светлая',
-        icon: IconSun,
-        iconFilled: IconSunFilled,
-        isActive: true,
-      },
-      {
-        title: 'Темная',
-        icon: IconMoon,
-        iconFilled: IconMoonFilled,
-      },
-    ],
+    firstElem: { title: 'Светлая', icon: IconSun, iconFilled: IconSunFilled, isActive: true },
+    lastElem: {
+      title: 'Темная',
+      icon: IconMoon,
+      iconFilled: IconMoonFilled,
+    },
   },
 };
 
 export const TextIcon = {
   args: {
-    elems: [
-      {
-        label: 'Светлая',
-        icon: IconSun,
-        iconFilled: IconSunFilled,
-        isActive: true,
-      },
-      {
-        label: 'Темная длинная',
-        icon: IconMoon,
-        iconFilled: IconMoonFilled,
-      },
-    ],
+    firstElem: { label: 'Светлая', icon: IconSun, iconFilled: IconSunFilled, isActive: true },
+    lastElem: {
+      label: 'Темная длинная',
+      icon: IconMoon,
+      iconFilled: IconMoonFilled,
+    },
   },
 };
 
 export const Text = {
   args: {
-    elems: [
-      {
-        label: 'Светлая',
-        isActive: true,
-      },
-      {
-        label: 'Темная длинная',
-      },
-    ],
+    firstElem: { label: 'Светлая', isActive: true },
+    lastElem: {
+      label: 'Темная длинная',
+    },
   },
 };
