@@ -12,3 +12,5 @@ declare module '*.svg' {
   const ReactComponent: SVGType;
   export default ReactComponent;
 }
+
+type KeyValueOfInterface<Interface> = Interface[keyof Interface];
