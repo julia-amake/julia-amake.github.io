@@ -10,6 +10,7 @@ const config = {
     '@storybook/addon-interactions',
     // '@storybook/preset-scss',
     '@storybook/addon-mdx-gfm',
+    'storybook-addon-themes',
   ],
   framework: {
     name: '@storybook/react-webpack5',

@@ -9,18 +9,23 @@ import s from './Modal.module.scss';
 interface ModalProps {
   children: ReactNode;
   visible?: boolean;
+  lazy?: boolean;
+  onClose?: () => void;
 }
 
-export const Modal = ({ children, visible = false }: ModalProps) => {
+export const Modal = ({ children, visible = false, lazy = true, onClose }: ModalProps) => {
   usePreventPageScrolling(visible);
+
+  if (lazy && !visible) return null;
 
   return (
     <Portal>
       <div className={cn(s.outer, { [s.outer_visible]: visible })}>
-        <div className={s.overlay}>
+        <div className={s.overlay} onClick={() => onClose?.()}>
           <Button
             className={s.close}
-            icon={{ element: CloseIcon }}
+            icon={CloseIcon}
+            iconClassName={s.closeIcon}
             variant="clean"
             size="m"
             title="Закрыть"

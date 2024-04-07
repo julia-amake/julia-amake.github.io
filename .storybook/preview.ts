@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/react';
 import { StyleDecorator } from 'src/shared/config/storybook/StyleDecorator';
+import { TranslationsDecorator } from 'src/shared/config/storybook/TranslationsDecorator';
+import { THEME } from 'src/shared/consts/theme';
+import { LANGUAGES } from 'src/shared/consts/langs';
 
 const preview: Preview = {
   parameters: {
@@ -16,8 +19,18 @@ const preview: Preview = {
         order: ['shared', 'entities', 'features', 'widgets', 'pages', 'app'],
       },
     },
+    themes: {
+      default: 'light',
+      list: [
+        { name: 'light', class: [THEME.LIGHT], color: '#ffffff' },
+        { name: 'dark', class: [THEME.DARK], color: '#000000' },
+      ],
+    },
+    backgrounds: {
+      disable: true,
+    },
   },
-  decorators: [StyleDecorator],
+  decorators: [StyleDecorator, TranslationsDecorator],
 };
 
 export default preview;

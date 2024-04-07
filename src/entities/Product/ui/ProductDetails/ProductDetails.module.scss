@@ -15,7 +15,7 @@
   flex-grow: 1;
   aspect-ratio: var(--product-ratio);
   object-fit: cover;
-  background: var(--color-bg-2);
+  background: var(--color-image-placeholder);
 
   &_l {
     width: calc(50% - 8px);

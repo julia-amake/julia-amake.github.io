@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import cn from 'clsx';
 import s from './Button.module.scss';
 
@@ -6,17 +6,14 @@ export type ButtonSize = 'xs' | 's' | 'm';
 type ButtonVariant = 'primary' | 'secondary' | 'clean';
 type IconPosition = 'left' | 'right';
 
-interface ButtonIcon {
-  element: SVGType;
-  position?: IconPosition;
-}
-
 export interface ButtonProps {
   /**
    * Текст на кнопке
    */
   label?: string;
-  icon?: ButtonIcon;
+  icon?: SVGType;
+  iconPosition?: IconPosition;
+  iconClassName?: string;
   size?: ButtonSize;
   variant?: ButtonVariant;
   rounded?: boolean;
@@ -31,67 +28,77 @@ export interface ButtonProps {
   children?: never;
 }
 
-export const Button = ({
-  label,
-  icon,
-  size = 'm',
-  variant = 'primary',
-  rounded = false,
-  full = false,
-  title,
-  disabled,
-  onClick,
-  className,
-}: ButtonProps) => {
-  if (!label && !icon) return null;
-
-  const buttonClassNames = cn(
-    s.outer,
+export const Button = memo(
+  ({
+    label,
+    icon: Icon,
+    iconPosition = 'left',
+    iconClassName,
+    size = 'm',
+    variant = 'primary',
+    rounded = false,
+    full = false,
+    title,
+    disabled,
+    onClick,
     className,
-    s[`outer_size-${size}`],
-    s[`outer_variant-${variant}`],
-    {
-      [s[`outer_noLabel-${size}`]]: !label,
-      [s.outer_full]: full,
-      [s.outer_disabled]: disabled,
-      [s.outer_rounded]: rounded,
-    }
-  );
+  }: ButtonProps) => {
+    if (!label && !Icon) return null;
 
-  const buttonInner = (() => {
-    if (!icon) return label;
-
-    const { element: Icon, position = 'left' } = icon;
-
-    const iconElem = (
-      <Icon
-        className={cn(s.icon, s[`icon_variant-${variant}`], s[`icon_size-${size}`], {
-          [s.icon_right]: position === 'right',
-          [s.icon_withLabel]: label,
-          [s.icon_noLabel]: !label,
-        })}
-      />
+    const buttonClassNames = cn(
+      s.outer,
+      className,
+      s[`outer_size-${size}`],
+      s[`outer_variant-${variant}`],
+      {
+        [s[`outer_noLabel-${size}`]]: !label,
+        [s.outer_full]: full,
+        [s.outer_disabled]: disabled,
+        [s.outer_rounded]: rounded,
+      }
     );
 
-    if (!label) return iconElem;
+    const buttonInner = (() => {
+      if (!Icon) return label;
+
+      const iconElem = (
+        <Icon
+          className={cn(
+            s.icon,
+            iconClassName,
+            s[`icon_variant-${variant}`],
+            s[`icon_size-${size}`],
+            {
+              [s.icon_right]: iconPosition === 'right',
+              [s.icon_withLabel]: label,
+              [s.icon_noLabel]: !label,
+            }
+          )}
+        />
+      );
+
+      if (!label) return iconElem;
+
+      return (
+        <>
+          {iconElem}
+          <span>{label}</span>
+        </>
+      );
+    })();
 
     return (
-      <>
-        {iconElem}
-        <span>{label}</span>
-      </>
+      <button
+        className={buttonClassNames}
+        title={title}
+        disabled={disabled}
+        type="button"
+        onClick={() => onClick?.()}
+      >
+        {buttonInner}
+      </button>
     );
-  })();
+  }
+);
 
-  return (
-    <button
-      className={buttonClassNames}
-      title={title}
-      disabled={disabled}
-      type="button"
-      onClick={() => onClick?.()}
-    >
-      {buttonInner}
-    </button>
-  );
-};
+Button.displayName = 'Button';
