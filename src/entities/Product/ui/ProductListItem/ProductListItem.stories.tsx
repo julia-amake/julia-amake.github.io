@@ -7,9 +7,9 @@ const meta: Meta<typeof ProductListItem> = {
   title: 'entities/ProductListItem',
   component: ProductListItem,
   args: {
-    title: 'Название товара',
+    name: 'Название товара',
     desc: 'Короткое описание товара в\u00A0две строки приходит обрезан...',
-    pic: 'https://amake.ru/assets/img/abs/rain-1.jpg',
+    photo: 'https://amake.ru/assets/img/abs/rain-1.jpg',
     price: 5600,
     cartBtn: <CartButton count={0} size={'s'} />,
   },
@@ -30,7 +30,7 @@ export const NoDescription = Template.bind({});
 Default.args = {};
 
 NoImage.args = {
-  pic: undefined,
+  photo: undefined,
 };
 
 NoDescription.args = {

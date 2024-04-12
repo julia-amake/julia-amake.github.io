@@ -16,7 +16,7 @@ import { categories, products } from 'src/homeworks/ts1/mocks';
  * - photo (строка, необязательно)
  */
 
-interface Category {
+export interface Category {
   id: string;
   name: string;
   photo?: string;
@@ -34,7 +34,7 @@ interface Category {
  * - category (Категория)
  */
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   photo: string;
@@ -119,8 +119,8 @@ export const createRandomProduct = (createdAt: string): Product => {
     createdAt,
     ...(faker.datatype.boolean() ? { oldPrice } : {}),
     price: +faker.commerce.price({
-      min: oldPrice + 100 || 980,
-      max: oldPrice ? oldPrice + oldPrice * 0.5 : 8900,
+      min: oldPrice - oldPrice * 0.5,
+      max: oldPrice - 100,
       dec: 0,
     }),
     category,
