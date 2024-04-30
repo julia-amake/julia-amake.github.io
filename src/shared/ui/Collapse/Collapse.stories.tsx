@@ -13,6 +13,7 @@ const meta: Meta<typeof Collapse> = {
         скрытия дочерних компонентов, они размонтируются.
       </div>
     ),
+    opened: true,
   },
 };
 
