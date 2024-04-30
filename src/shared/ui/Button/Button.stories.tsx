@@ -33,7 +33,9 @@ export const IconOnly = {
 
 export const Rounded = { args: { rounded: true } };
 
-export const FullWidth = { args: { full: true } };
+export const FullWidth = { args: { full: true, icon: Icon } };
+export const FullWidthTextLeft = { args: { full: true, textPosition: 'left', icon: Icon } };
+export const FullWidthTextRight = { args: { full: true, textPosition: 'right', icon: Icon } };
 
 export const PrimaryDisabled = { args: { variant: 'primary', disabled: true } };
 export const SecondaryDisabled = { args: { variant: 'secondary', disabled: true } };

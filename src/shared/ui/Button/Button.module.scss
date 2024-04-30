@@ -1,6 +1,5 @@
 .outer {
   display: flex;
-  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   font-weight: 500;
@@ -39,6 +38,20 @@
     }
   }
 
+  &_text {
+    &-center {
+      justify-content: center;
+    }
+
+    &-left {
+      justify-content: flex-start;
+    }
+
+    &-right {
+      justify-content: flex-end;
+    }
+  }
+
   &_size {
     &-xs {
       gap: 8px;
@@ -74,6 +87,10 @@
     &-m {
       padding: 12px;
     }
+  }
+
+  &_variant-clean {
+    padding: 0;
   }
 
   &_disabled {
