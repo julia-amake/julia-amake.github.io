@@ -5,6 +5,7 @@ import s from './Button.module.scss';
 export type ButtonSize = 'xs' | 's' | 'm';
 type ButtonVariant = 'primary' | 'secondary' | 'clean';
 type IconPosition = 'left' | 'right';
+type TextPosition = 'center' | 'left' | 'right';
 
 export interface ButtonProps {
   /**
@@ -16,6 +17,7 @@ export interface ButtonProps {
   iconClassName?: string;
   size?: ButtonSize;
   variant?: ButtonVariant;
+  textPosition?: TextPosition;
   rounded?: boolean;
   full?: boolean;
   /**
@@ -36,6 +38,7 @@ export const Button = memo(
         icon: Icon,
         iconPosition = 'left',
         iconClassName,
+        textPosition = 'center',
         size = 'm',
         variant = 'primary',
         rounded = false,
@@ -54,6 +57,7 @@ export const Button = memo(
         className,
         s[`outer_size-${size}`],
         s[`outer_variant-${variant}`],
+        s[`outer_text-${textPosition}`],
         {
           [s[`outer_noLabel-${size}`]]: !label,
           [s.outer_full]: full,
