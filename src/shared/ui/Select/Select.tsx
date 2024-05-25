@@ -39,7 +39,7 @@ export const Select = typedMemo(
             </label>
           )}
           <select
-            className={cn(s.select, { [s.disabled]: disabled })}
+            className={cn(s.select, { [s.select_disabled]: disabled })}
             {...(value ? { value } : {})}
             onChange={onChange}
             disabled={disabled}

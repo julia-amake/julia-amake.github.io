@@ -27,6 +27,17 @@
   background-size: 16px 16px;
   background-repeat: no-repeat;
   background-position: right bottom 8px;
+
+  &_disabled {
+    opacity: 0.3;
+  }
+}
+
+.label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 10px;
 }
 
 .error {
