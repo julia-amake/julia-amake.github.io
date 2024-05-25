@@ -1,0 +1,67 @@
+import React, { memo } from 'react';
+import { getValidates } from 'src/shared/lib/utils/validation/common';
+import { FormProps } from 'src/shared/types/formTypes';
+import { Button } from 'src/shared/ui/Button';
+import { Form } from 'src/shared/ui/Form';
+import { Heading } from 'src/shared/ui/Heading';
+import { TextField } from 'src/shared/ui/TextField';
+
+export type AuthFormValues = {
+  email: string;
+  password: string;
+};
+
+export type AuthFormErrors = Record<keyof AuthFormValues, string>;
+export interface AuthFormProps extends FormProps<AuthFormValues> {
+  title: string;
+}
+
+export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) => {
+  if (!formManager) return null;
+
+  const {
+    initialValues,
+    submitForm,
+    touched,
+    errors,
+    submitCount,
+    handleBlur,
+    handleSubmit,
+    handleChange,
+  } = formManager;
+
+  const { help: helpEmail } = getValidates(errors.email, touched.email, submitCount);
+  const { help: helpPassword } = getValidates(errors.password, touched.password, submitCount);
+
+  return (
+    <Form className={className} onSubmit={handleSubmit}>
+      <Heading as="h2" size="h5">
+        {title}
+      </Heading>
+      <TextField
+        autoFocus
+        name="email"
+        type="email"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="Email"
+        required
+        errorMessage={helpEmail}
+        defaultValue={initialValues.email}
+      />
+      <TextField
+        name="password"
+        type="password"
+        required
+        onChange={handleChange}
+        onBlur={handleBlur}
+        label="Пароль"
+        errorMessage={helpPassword}
+        defaultValue={initialValues.password}
+      />
+      <Button label={title} onClick={submitForm} />
+    </Form>
+  );
+});
+
+AuthForm.displayName = 'AuthForm';

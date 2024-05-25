@@ -1,0 +1,59 @@
+import React, { ReactNode, SelectHTMLAttributes, useId } from 'react';
+import cn from 'clsx';
+import { typedMemo } from 'src/shared/lib/utils/typedMemo';
+import s from './Select.module.scss';
+
+export interface SelectOption<T extends string> {
+  value: T;
+  content: string;
+}
+
+export interface SelectProps<T extends string> extends SelectHTMLAttributes<HTMLSelectElement> {
+  label?: string;
+  options: SelectOption<T>[];
+  value?: T;
+  disabled?: boolean;
+  className?: string;
+  errorMessage?: ReactNode;
+}
+
+export const Select = typedMemo(
+  <T extends string>({
+    label,
+    value,
+    options,
+    errorMessage,
+    disabled,
+    className,
+    onChange,
+    ...otherProps
+  }: SelectProps<T>) => {
+    const selectId = useId();
+
+    return (
+      <div className={cn(s.outer, className)}>
+        <div className={cn(s.fieldWrapper, { [s.fieldWrapper_error]: errorMessage })}>
+          {label && (
+            <label className={s.label} htmlFor={selectId}>
+              {label}
+            </label>
+          )}
+          <select
+            className={cn(s.select, { [s.disabled]: disabled })}
+            {...(value ? { value } : {})}
+            onChange={onChange}
+            disabled={disabled}
+            {...otherProps}
+          >
+            {options.map((opt) => (
+              <option value={opt.value} key={opt.value}>
+                {opt.content}
+              </option>
+            ))}
+          </select>
+        </div>
+        {errorMessage && <div className={s.error}>{errorMessage}</div>}
+      </div>
+    );
+  }
+);
