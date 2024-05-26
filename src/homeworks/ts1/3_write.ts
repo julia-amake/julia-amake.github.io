@@ -16,9 +16,11 @@ import { categories, products } from 'src/homeworks/ts1/mocks';
  * - photo (строка, необязательно)
  */
 
+export type CategoryName = 'Face' | 'Hair' | 'Body' | 'Makeup' | 'Perfumery';
+
 export interface Category {
   id: string;
-  name: string;
+  name: CategoryName;
   photo?: string;
 }
 
@@ -95,16 +97,9 @@ interface Profit extends OperationBase {
  * Принимает дату создания (строка)
  * */
 
-const getCategory = (): Category => {
-  const [categoryName, categoryImage] = faker.helpers.arrayElement(Object.entries(categories));
-  return {
-    id: faker.string.uuid(),
-    name: categoryName,
-    ...(faker.datatype.boolean() ? { photo: categoryImage } : {}),
-  };
-};
+const getCategory = (): Category => faker.helpers.arrayElement(categories);
 
-const getProductImage = (category: keyof typeof categories): string =>
+const getProductImage = (category: CategoryName): string =>
   faker.helpers.arrayElement(products[category]);
 
 export const createRandomProduct = (createdAt: string): Product => {
@@ -114,7 +109,7 @@ export const createRandomProduct = (createdAt: string): Product => {
   return {
     id: faker.string.uuid(),
     name: `${faker.commerce.productAdjective()} ${faker.commerce.productMaterial()}`,
-    photo: getProductImage(category.name as keyof typeof categories),
+    photo: getProductImage(category.name),
     ...(faker.datatype.boolean() ? { description: faker.commerce.productDescription() } : {}),
     createdAt,
     ...(faker.datatype.boolean() ? { oldPrice } : {}),

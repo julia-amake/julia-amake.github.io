@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { ChangeEvent, memo, useState } from 'react';
 import cn from 'clsx';
 import { Button } from 'src/shared/ui/Button';
 import { Modal } from 'src/shared/ui/Modal';
@@ -15,7 +15,10 @@ export const ModalStateTesting = memo(({ className }: ModalStateTestingProps) =>
 
   return (
     <div className={cn(s.outer, className)}>
-      <TextField label="Что вывести в модалке?" onChange={setMessage} />
+      <TextField
+        label="Что вывести в модалке?"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.currentTarget.value)}
+      />
       <Button label="Открыть модалку" onClick={() => setIsModalOpen(true)} disabled={!message} />
       <Modal visible={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {message}

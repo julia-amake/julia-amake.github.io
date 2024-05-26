@@ -1,13 +1,47 @@
-export const categories = {
-  Face: 'https://www.azyaamode.com/files/stories/group0/original/shutterstock_318602609.jpg',
-  Hair: 'https://brando-s.ru/wp-content/uploads/maska_uhod.jpg',
-  Body: 'https://avatars.dzeninfra.ru/get-zen_doc/9348320/pub_641221a5aad9141a24c137d7_641221c6aad9141a24c13cf0/scale_1200',
-  Makeup:
-    'https://mykaleidoscope.ru/uploads/posts/2023-12/thumbs/1702576373_mykaleidoscope-ru-p-makiyazh-s-sinimi-strelkami-zhenskie-pinte-49.jpg',
-  Perfumery: 'https://i.pinimg.com/originals/dd/da/67/ddda678d0385a6f5a398fdeaf59201be.png',
-};
+import { Category, CategoryName } from 'src/homeworks/ts1/3_write';
 
-export const products = {
+// export const categories = {
+//   Face: 'https://www.azyaamode.com/files/stories/group0/original/shutterstock_318602609.jpg',
+//   Hair: 'https://brando-s.ru/wp-content/uploads/maska_uhod.jpg',
+//   Body: 'https://avatars.dzeninfra.ru/get-zen_doc/9348320/pub_641221a5aad9141a24c137d7_641221c6aad9141a24c13cf0/scale_1200',
+//   Makeup:
+//     'https://mykaleidoscope.ru/uploads/posts/2023-12/thumbs/1702576373_mykaleidoscope-ru-p-makiyazh-s-sinimi-strelkami-zhenskie-pinte-49.jpg',
+//   Perfumery: 'https://i.pinimg.com/originals/dd/da/67/ddda678d0385a6f5a398fdeaf59201be.png',
+// };
+
+export const categories: Category[] = [
+  {
+    id: '1',
+    name: 'Face',
+    photo: 'https://www.azyaamode.com/files/stories/group0/original/shutterstock_318602609.jpg',
+  },
+  {
+    id: '2',
+    name: 'Hair',
+    photo: 'https://brando-s.ru/wp-content/uploads/maska_uhod.jpg',
+  },
+  {
+    id: '3',
+    name: 'Body',
+    photo:
+      'https://avatars.dzeninfra.ru/get-zen_doc/9348320/pub_641221a5aad9141a24c137d7_641221c6aad9141a24c13cf0/scale_1200',
+  },
+  {
+    id: '4',
+    name: 'Makeup',
+    photo:
+      'https://mykaleidoscope.ru/uploads/posts/2023-12/thumbs/1702576373_mykaleidoscope-ru-p-makiyazh-s-sinimi-strelkami-zhenskie-pinte-49.jpg',
+  },
+  {
+    id: '5',
+    name: 'Perfumery',
+    photo: 'https://i.pinimg.com/originals/dd/da/67/ddda678d0385a6f5a398fdeaf59201be.png',
+  },
+];
+
+export const products: {
+  [key in CategoryName]: string[];
+} = {
   Face: [
     'https://amake.ru/assets/img/ot/product/face-1.jpg',
     'https://amake.ru/assets/img/ot/product/face-2.jpg',
