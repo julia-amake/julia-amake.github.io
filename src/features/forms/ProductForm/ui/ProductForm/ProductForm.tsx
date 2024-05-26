@@ -31,7 +31,10 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
     onSubmit,
     validate,
     initialValues,
-  }: Pick<FormikConfig<ProductFormData>, 'onSubmit' | 'validate' | 'initialValues'> = useMemo(
+  }: Pick<
+    FormikConfig<ProductFormData>,
+    'onSubmit' | 'validate' | 'initialValues' | 'enableReinitialize'
+  > = useMemo(
     () => ({
       initialValues: id
         ? productData
@@ -42,8 +45,9 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
             price: 0,
             categoryId: '',
           },
-      onSubmit: (values) => {
+      onSubmit: (values, { resetForm }) => {
         console.log(values);
+        resetForm({ values: initialValues });
       },
       validate: (values) => {
         const errors = {} as ProductFormErrors;
@@ -67,6 +71,7 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
         }
         return errors;
       },
+      enableReinitialize: true,
     }),
     [id]
   );
@@ -94,6 +99,7 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
         {id ? `Редактировать ${product.name}` : 'Создать товар'}
       </Heading>
       <ProductField
+        value={values.name}
         name="name"
         label="Название"
         required
@@ -105,6 +111,7 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
         {...(id ? { defaultValue: product.name } : { autoFocus: true })}
       />
       <ProductField
+        value={values.desc}
         name="desc"
         label="Описание"
         required
@@ -116,6 +123,7 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
         {...(id ? { defaultValue: product.desc } : {})}
       />
       <ProductField
+        value={values.photo}
         name="photo"
         label="Изображение"
         required
@@ -133,20 +141,23 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
         errorMessage={errors.categoryId}
         submitCount={submitCount}
         onChange={handleChange}
-        {...(id ? { value: values.categoryId } : {})}
+        value={values.categoryId}
       />
       <ProductField
+        value={values.price || ''}
         name="price"
         label="Цена"
         type="number"
         required
         touched={!!touched.price}
+        errorMessage={errors.price}
         submitCount={submitCount}
         onBlur={handleBlur}
         onChange={handleChange}
         {...(id ? { defaultValue: String(product.price || '') } : {})}
       />
       <ProductField
+        value={values.oldPrice || ''}
         name="oldPrice"
         label="Старая цена"
         type="number"

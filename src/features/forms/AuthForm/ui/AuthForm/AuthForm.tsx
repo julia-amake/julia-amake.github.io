@@ -20,7 +20,6 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
   if (!formManager) return null;
 
   const {
-    initialValues,
     submitForm,
     touched,
     errors,
@@ -28,6 +27,7 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
     handleBlur,
     handleSubmit,
     handleChange,
+    values,
   } = formManager;
 
   const { help: helpEmail } = getValidates(errors.email, touched.email, submitCount);
@@ -39,6 +39,7 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
         {title}
       </Heading>
       <TextField
+        value={values.email}
         autoFocus
         name="email"
         type="email"
@@ -47,9 +48,9 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
         label="Email"
         required
         errorMessage={helpEmail}
-        defaultValue={initialValues.email}
       />
       <TextField
+        value={values.password}
         name="password"
         type="password"
         required
@@ -57,7 +58,6 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
         onBlur={handleBlur}
         label="Пароль"
         errorMessage={helpPassword}
-        defaultValue={initialValues.password}
       />
       <Button label={title} onClick={submitForm} />
     </Form>

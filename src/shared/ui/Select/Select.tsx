@@ -1,9 +1,10 @@
-import React, { ReactNode, SelectHTMLAttributes, useId } from 'react';
+import React, { OptionHTMLAttributes, ReactNode, SelectHTMLAttributes, useId } from 'react';
 import cn from 'clsx';
 import { typedMemo } from 'src/shared/lib/utils/typedMemo';
 import s from './Select.module.scss';
 
-export interface SelectOption<T extends string> {
+export interface SelectOption<T extends string = string>
+  extends OptionHTMLAttributes<HTMLOptionElement> {
   value: T;
   content: string;
 }
@@ -40,13 +41,13 @@ export const Select = typedMemo(
           )}
           <select
             className={cn(s.select, { [s.select_disabled]: disabled })}
-            {...(value ? { value } : {})}
             onChange={onChange}
             disabled={disabled}
+            value={value}
             {...otherProps}
           >
             {options.map((opt) => (
-              <option value={opt.value} key={opt.value}>
+              <option key={opt.value} {...opt}>
                 {opt.content}
               </option>
             ))}

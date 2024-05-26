@@ -22,8 +22,9 @@ const {
     email: '',
     password: '',
   },
-  onSubmit: (values) => {
+  onSubmit: (values, { resetForm }) => {
     console.log(values);
+    resetForm({ values: initialValues });
   },
   validate: (values) => {
     const errors = {} as AuthFormErrors;
@@ -33,7 +34,7 @@ const {
     if (values.email && !values.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i)?.length) {
       errors.email = 'Некорректный email';
     }
-    if (!values.password.match(/^(?=.*[A-Z].*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/)?.length) {
+    if (!values.password.match(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/)?.length) {
       errors.password =
         'Пароль должен быть не короче 8 символов и содержать хотя бы одну цифру, заглавную и строчную буквы';
     }

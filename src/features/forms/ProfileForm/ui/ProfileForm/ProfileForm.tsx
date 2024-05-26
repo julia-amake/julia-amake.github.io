@@ -21,11 +21,12 @@ const {
   initialValues,
 }: Pick<FormikConfig<ProfileFormValues>, 'onSubmit' | 'validate' | 'initialValues'> = {
   initialValues: {
-    name: 'Initial name',
-    about: 'Initial about',
+    name: '',
+    about: '',
   },
-  onSubmit: (values) => {
+  onSubmit: (values, { resetForm }) => {
     console.log(values);
+    resetForm({ values: initialValues });
   },
   validate: (values) => {
     const errors = {} as ProfileFormErrors;
@@ -43,8 +44,16 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
     validate,
   });
 
-  const { submitForm, touched, errors, submitCount, handleBlur, handleSubmit, handleChange } =
-    formManager;
+  const {
+    values,
+    submitForm,
+    touched,
+    errors,
+    submitCount,
+    handleBlur,
+    handleSubmit,
+    handleChange,
+  } = formManager;
 
   const { help: helpName } = getValidates(errors.name, touched.name, submitCount);
   const { help: helpAbout } = getValidates(errors.about, touched.about, submitCount);
@@ -55,6 +64,7 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
         Изменить профиль
       </Heading>
       <TextField
+        value={values.name}
         autoFocus
         name="name"
         onChange={handleChange}
@@ -65,6 +75,7 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
         defaultValue={initialValues.name}
       />
       <TextField
+        value={values.about}
         name="about"
         onChange={handleChange}
         onBlur={handleBlur}

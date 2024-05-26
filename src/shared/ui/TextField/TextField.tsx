@@ -29,13 +29,13 @@ export interface TextFieldProps extends Omit<InputHTMLAttributes<HTMLInputElemen
   errorMessage?: ReactNode;
   classNames?: TextFieldClassNames;
   children?: never;
-  value?: never;
 }
 
 export const TextField = memo(
   forwardRef<HTMLInputElement, TextFieldProps>(
     (
       {
+        value,
         type = 'text',
         label,
         defaultValue,
@@ -49,12 +49,10 @@ export const TextField = memo(
       }: TextFieldProps,
       ref
     ) => {
-      const [value, setValue] = useState<string>(defaultValue || '');
       const [isFocused, setIsFocused] = useState(false);
       const inputId = useId();
 
       const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value);
         onChange?.(e);
       };
 

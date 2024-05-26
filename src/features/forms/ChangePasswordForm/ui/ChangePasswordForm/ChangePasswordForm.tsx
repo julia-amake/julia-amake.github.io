@@ -16,16 +16,19 @@ export interface ChangePasswordFormValues {
 export type ChangePasswordFormErrors = Record<keyof ChangePasswordFormValues, string>;
 
 const initialValues: ChangePasswordFormValues = {
-  password: undefined,
-  newPassword: undefined,
-  repeatPassword: undefined,
+  password: '',
+  newPassword: '',
+  repeatPassword: '',
 };
 
 const {
   onSubmit,
   validate,
 }: Pick<FormikConfig<ChangePasswordFormValues>, 'onSubmit' | 'validate'> = {
-  onSubmit: (values) => console.log(values),
+  onSubmit: (values, { resetForm }) => {
+    console.log(values);
+    resetForm({ values: initialValues });
+  },
   validate: (values) => {
     const errors = {} as ChangePasswordFormErrors;
     if (isNotDefinedString(values.password)) {
@@ -36,6 +39,9 @@ const {
     }
     if (isNotDefinedString(values.repeatPassword)) {
       errors.repeatPassword = 'Обязательное поле';
+    }
+    if (values.password === values.newPassword) {
+      errors.newPassword = 'Новый пароль должен отличаться от старого';
     }
     if (values.repeatPassword !== values.newPassword) {
       errors.newPassword = 'Пароли не совпадают';
@@ -54,8 +60,16 @@ export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) 
     validate,
   });
 
-  const { touched, errors, submitCount, handleBlur, handleSubmit, handleChange, submitForm } =
-    formManager;
+  const {
+    values,
+    touched,
+    errors,
+    submitCount,
+    handleBlur,
+    handleSubmit,
+    handleChange,
+    submitForm,
+  } = formManager;
 
   const { help: helpPassword } = getValidates(errors.password, touched.password, submitCount);
   const { help: helpNewPassword } = getValidates(
@@ -75,31 +89,31 @@ export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) 
         Изменить пароль
       </Heading>
       <TextField
+        value={values.password}
         name="password"
         onChange={handleChange}
         onBlur={handleBlur}
         label="Введите текущий пароль"
         required
         errorMessage={helpPassword}
-        defaultValue={initialValues.password}
       />
       <TextField
+        value={values.newPassword}
         name="newPassword"
         onChange={handleChange}
         onBlur={handleBlur}
         label="Придумайте новый пароль"
         required
         errorMessage={helpNewPassword}
-        defaultValue={initialValues.newPassword}
       />
       <TextField
+        value={values.repeatPassword}
         name="repeatPassword"
         onChange={handleChange}
         onBlur={handleBlur}
         label="Повторите пароль"
         required
         errorMessage={helpRepeatPassword}
-        defaultValue={initialValues.repeatPassword}
       />
       <Button label="Изменить пароль" onClick={submitForm} />
     </Form>
