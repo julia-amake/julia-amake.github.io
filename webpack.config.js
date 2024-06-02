@@ -40,7 +40,7 @@ module.exports = (_, args) => {
       path: dist,
       publicPath: isDev
         ? `http://${host}:${port}/`
-        : undefined /* <- прописать данные своего github */,
+        : 'https://julia-amake.github.io/' /* <- прописать данные своего github */,
       filename: `js/[name]_[contenthash].js`,
       chunkFilename: `js/[name]_[contenthash].js`,
       clean: true,
