@@ -14,3 +14,5 @@ declare module '*.svg' {
 }
 
 type KeyValueOfInterface<Interface> = Interface[keyof Interface];
+
+declare const __PUBLIC_PATH__: string;

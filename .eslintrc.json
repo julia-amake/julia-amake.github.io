@@ -53,7 +53,13 @@
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", "parent", "sibling"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
@@ -106,7 +112,9 @@
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react"],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ],
         "newlines-between": "never",
         "alphabetize": {
           "order": "asc",
@@ -115,7 +123,14 @@
       }
     ],
     "import/no-cycle": "warn",
-    "import/no-unresolved": ["error", { "ignore": ["\\.svg\\?url$"] }]
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "\\.svg\\?url$"
+        ]
+      }
+    ]
   },
   "settings": {
     "react": {
@@ -134,5 +149,8 @@
         ]
       }
     }
+  },
+  "globals": {
+    "__PUBLIC_PATH__": true
   }
 }

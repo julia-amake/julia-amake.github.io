@@ -4,6 +4,7 @@ const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 const port = 2233;
 const dist = path.join(__dirname, 'dist');
@@ -13,6 +14,9 @@ const host = 'localhost';
 module.exports = (_, args) => {
   const isProd = args.mode === 'production';
   const isDev = args.mode === 'development';
+  const publicPath = isDev
+    ? `http://${host}:${port}/`
+    : 'https://julia-amake.github.io/'; /* <- прописать данные своего github */
 
   return {
     entry: './index.tsx',
@@ -38,9 +42,7 @@ module.exports = (_, args) => {
     },
     output: {
       path: dist,
-      publicPath: isDev
-        ? `http://${host}:${port}/`
-        : 'https://julia-amake.github.io/' /* <- прописать данные своего github */,
+      publicPath,
       filename: `js/[name]_[contenthash].js`,
       chunkFilename: `js/[name]_[contenthash].js`,
       clean: true,
@@ -122,6 +124,9 @@ module.exports = (_, args) => {
         typescript: {
           configFile: path.join(__dirname, 'tsconfig.json'),
         },
+      }),
+      new webpack.DefinePlugin({
+        __PUBLIC_PATH__: JSON.stringify(publicPath),
       }),
       ...(isProd ? [new CssMinimizerWebpackPlugin()] : []),
     ],
