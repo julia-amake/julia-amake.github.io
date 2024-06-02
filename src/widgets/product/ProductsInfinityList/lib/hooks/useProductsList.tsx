@@ -8,8 +8,8 @@ interface UseProductsListResult {
   loadMoreProducts: () => void;
 }
 
-export const useProductsList = (): UseProductsListResult => {
-  const [products, setProducts] = useState<ProductListItemProps[]>(() => getProducts(12));
+export const useProductsList = (count: number = 12): UseProductsListResult => {
+  const [products, setProducts] = useState<ProductListItemProps[]>(() => getProducts(count));
   const [isLoading, setIsLoading] = useState(false);
 
   const loadMoreProducts = useCallback(() => {
@@ -18,11 +18,11 @@ export const useProductsList = (): UseProductsListResult => {
     setIsLoading(true);
     setTimeout(() => {
       setProducts((products) => {
-        return [...products, ...getProducts(12)];
+        return [...products, ...getProducts(count)];
       });
       setIsLoading(false);
     }, 1000);
-  }, [isLoading]);
+  }, [count, isLoading]);
 
   return useMemo(
     () => ({

@@ -4,7 +4,7 @@ import { formatNumberToLocal } from 'src/shared/lib/utils';
 import { PicWrapper } from 'src/shared/ui/PicWrapper';
 import s from './ProductCartItem.module.scss';
 
-interface ProductCartItemProps {
+export interface ProductCartItemProps {
   title: string;
   desc?: string;
   count: number;

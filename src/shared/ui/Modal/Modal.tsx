@@ -16,22 +16,24 @@ interface ModalProps {
 export const Modal = ({ children, visible = false, lazy = true, onClose }: ModalProps) => {
   usePreventPageScrolling(visible);
 
+  const handleInnerClick = (e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation();
+
   if (lazy && !visible) return null;
 
   return (
     <Portal>
-      <div className={cn(s.outer, { [s.outer_visible]: visible })}>
-        <div className={s.overlay} onClick={() => onClose?.()}>
-          <Button
-            className={s.close}
-            icon={CloseIcon}
-            iconClassName={s.closeIcon}
-            variant="clean"
-            size="m"
-            title="Закрыть"
-          />
+      <div className={cn(s.outer, { [s.outer_visible]: visible })} onClick={onClose}>
+        <div className={s.inner} onClick={handleInnerClick}>
+          {children}
         </div>
-        <div className={s.inner}>{children}</div>
+        <Button
+          className={s.close}
+          icon={CloseIcon}
+          iconClassName={s.closeIcon}
+          variant="clean"
+          size="m"
+          title="Закрыть"
+        />
       </div>
     </Portal>
   );

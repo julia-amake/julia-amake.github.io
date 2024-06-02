@@ -5,7 +5,7 @@ import s from './Heading.module.scss';
 type HeadingSizes = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type HeadingFontWeight = 'light' | 'normal' | 'bold';
 
-interface HeadingProps {
+export interface HeadingProps {
   as?: ElementType;
   size?: HeadingSizes;
   weight?: HeadingFontWeight;

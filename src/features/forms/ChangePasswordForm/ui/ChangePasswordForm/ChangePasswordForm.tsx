@@ -115,7 +115,7 @@ export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) 
         required
         errorMessage={helpRepeatPassword}
       />
-      <Button label="Изменить пароль" onClick={submitForm} />
+      <Button label="Сохранить изменения" onClick={submitForm} />
     </Form>
   );
 });
