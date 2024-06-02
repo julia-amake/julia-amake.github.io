@@ -1,5 +1,5 @@
-import React, { ReactElement, useContext } from 'react';
-import { TranslationsContext } from 'src/shared/lib/context';
+import React, { ReactElement } from 'react';
+import { Outlet } from 'react-router-dom';
 import s from './BaseLayout.module.scss';
 
 interface BaseLayoutProps {
@@ -7,11 +7,12 @@ interface BaseLayoutProps {
 }
 
 export const BaseLayout = ({ header }: BaseLayoutProps) => {
-  const { t } = useContext(TranslationsContext);
   return (
     <div className={s.outer}>
       <div className={s.header}>{header}</div>
-      <main className={s.main}>{t('Основной контент страницы')}</main>
+      <main className={s.main}>
+        <Outlet />
+      </main>
     </div>
   );
 };
