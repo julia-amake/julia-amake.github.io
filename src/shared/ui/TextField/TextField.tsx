@@ -67,7 +67,7 @@ export const TextField = memo(
       };
 
       return (
-        <div className={classNames?.wrapper}>
+        <div className={cn(classNames?.wrapper, s.outer)}>
           <div className={cn(s.fieldWrapper, { [s.fieldWrapper_error]: errorMessage })}>
             {label && (
               <label
