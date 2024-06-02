@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import { AddProductPage } from 'src/pages/AddProductPage/ui/AddProductPage';
 import { CartPage } from 'src/pages/CartPage/ui/CartPage';
 import { CatalogPage } from 'src/pages/CatalogPage/ui/CatalogPage';
@@ -15,7 +15,7 @@ import {
 import { BaseLayout } from 'src/shared/ui/layouts/BaseLayout';
 import { Header } from 'src/widgets/Header';
 
-export const routerConfig = createBrowserRouter([
+export const routerConfig = createHashRouter([
   {
     path: getRouteMain(),
     element: <BaseLayout header={<Header />} />,
