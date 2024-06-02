@@ -9,4 +9,10 @@ export const usePreventPageScrolling = (isPrevent: boolean) => {
     }
     document.body.classList.remove(BODY_MODAL_OPENED_CLASSNAME);
   }, [isPrevent]);
+
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove(BODY_MODAL_OPENED_CLASSNAME);
+    };
+  }, []);
 };

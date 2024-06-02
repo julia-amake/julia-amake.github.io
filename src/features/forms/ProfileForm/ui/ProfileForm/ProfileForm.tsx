@@ -61,7 +61,7 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
   return (
     <Form className={className} onSubmit={handleSubmit}>
       <Heading as="h1" size="h5">
-        Изменить профиль
+        Изменить данные
       </Heading>
       <TextField
         value={values.name}
@@ -83,7 +83,7 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
         errorMessage={helpAbout}
         defaultValue={initialValues.about}
       />
-      <Button label="Изменить профиль" onClick={submitForm} />
+      <Button label="Сохранить изменения" onClick={submitForm} full={false} />
     </Form>
   );
 });
