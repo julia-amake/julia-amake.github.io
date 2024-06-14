@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
-import { CartButton } from 'src/widgets/product/CartButton/ui/CartButton';
+import { CartButton } from 'src/features/CartButton/ui/CartButton';
+import { createRandomProduct } from 'src/homeworks/ts1/3_write';
 import { ProductDetails } from './ProductDetails';
 
 const meta: Meta<typeof ProductDetails> = {
@@ -22,7 +23,7 @@ const meta: Meta<typeof ProductDetails> = {
     ],
     price: 5600,
     category: 'Категория',
-    cartBtn: <CartButton count={0} />,
+    cartBtn: <CartButton product={createRandomProduct(String(new Date()))} />,
   },
 };
 

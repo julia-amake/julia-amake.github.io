@@ -1,12 +1,20 @@
-import React from 'react';
-import { ProductListItemProps } from 'src/entities/Product/ui/ProductListItem';
-import { createRandomProduct, Product } from 'src/homeworks/ts1/3_write';
-import { CartButton } from 'src/widgets/product/CartButton/ui/CartButton';
+import { createRandomProduct } from 'src/homeworks/ts1/3_write';
+import { categories } from 'src/homeworks/ts1/mocks';
+import { Product } from '../model/types/productTypes';
 
-export const getProducts = (count: number): ProductListItemProps[] => {
+export type CategoryName = 'Face' | 'Hair' | 'Body' | 'Makeup' | 'Perfumery';
+
+export const getProducts = (count: number): Product[] => {
   if (count < 1) return [];
-  return Array.from({ length: count }, () => {
-    const product: Product = createRandomProduct(String(new Date()));
-    return { ...product, cartBtn: <CartButton count={0} /> };
-  });
+  return Array.from({ length: count }, () => createRandomProduct(String(new Date())));
+};
+
+export const fakeProduct: Product = {
+  id: '1',
+  name: 'Название товара',
+  desc: 'Короткое описание товара в\u00A0две строки приходит обрезан...',
+  photo: 'https://amake.ru/assets/img/abs/rain-1.jpg',
+  price: 5600,
+  createdAt: String(new Date()),
+  category: categories[0],
 };

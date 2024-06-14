@@ -1,5 +1,7 @@
 import React, { memo, useRef } from 'react';
+import { Product } from 'src/entities/Product';
 import { ProductsList } from 'src/entities/Product/ui/ProductsList';
+import { CartButton } from 'src/features/CartButton/ui/CartButton';
 import { useInfiniteScroll } from 'src/shared/lib/hooks';
 import { Button } from 'src/shared/ui/Button';
 import { useProductsList } from '../../lib/hooks/useProductsList';
@@ -18,7 +20,12 @@ export const ProductsInfinityList = memo(({ className }: ProductsInfinityListPro
 
   return (
     <div className={className} ref={wrapperRef}>
-      <ProductsList className={s.list} products={products} isLoading={isLoading} />
+      <ProductsList
+        className={s.list}
+        products={products}
+        isLoading={isLoading}
+        renderCartButton={(product: Product) => <CartButton product={product} />}
+      />
       <Button
         className={s.button}
         label="Показать еще"

@@ -1,17 +1,18 @@
 import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
-import { CartButton } from 'src/widgets/product/CartButton/ui/CartButton';
+import { Product } from 'src/entities/Product';
+import { fakeProduct } from 'src/entities/Product/mocks/productsMocks';
+import { CartButton } from 'src/features/CartButton/ui/CartButton';
 import { ProductListItem } from './ProductListItem';
+
+const product: Product = fakeProduct;
 
 const meta: Meta<typeof ProductListItem> = {
   title: 'entities/ProductListItem',
   component: ProductListItem,
   args: {
-    name: 'Название товара',
-    desc: 'Короткое описание товара в\u00A0две строки приходит обрезан...',
-    photo: 'https://amake.ru/assets/img/abs/rain-1.jpg',
-    price: 5600,
-    cartBtn: <CartButton count={0} size={'s'} />,
+    product,
+    renderCartButton: () => <CartButton product={product} size={'s'} />,
   },
 };
 
@@ -28,11 +29,16 @@ export const NoImage = Template.bind({});
 export const NoDescription = Template.bind({});
 
 Default.args = {};
-
 NoImage.args = {
-  photo: undefined,
+  product: {
+    ...product,
+    photo: undefined,
+  },
 };
 
 NoDescription.args = {
-  desc: undefined,
+  product: {
+    ...product,
+    desc: undefined,
+  },
 };

@@ -11,7 +11,6 @@ export type AuthFormValues = {
   password: string;
 };
 
-export type AuthFormErrors = Record<keyof AuthFormValues, string>;
 export interface AuthFormProps extends FormProps<AuthFormValues> {
   title: string;
 }

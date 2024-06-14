@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
-import { FormikConfig, useFormik } from 'formik/dist';
-import { getValidates, isNotDefinedString } from 'src/shared/lib/utils/validation/common';
+import { getValidates } from 'src/shared/lib/utils/validation/common';
 import { FormProps } from 'src/shared/types/formTypes';
 import { Button } from 'src/shared/ui/Button';
 import { Form } from 'src/shared/ui/Form';
 import { Heading } from 'src/shared/ui/Heading';
 import { TextField } from 'src/shared/ui/TextField';
+import { useChangePasswordForm } from '../../lib/hooks/useChangePasswordForm';
 
 export interface ChangePasswordFormValues {
   password?: string;
@@ -13,53 +13,9 @@ export interface ChangePasswordFormValues {
   repeatPassword?: string;
 }
 
-export type ChangePasswordFormErrors = Record<keyof ChangePasswordFormValues, string>;
-
-const initialValues: ChangePasswordFormValues = {
-  password: '',
-  newPassword: '',
-  repeatPassword: '',
-};
-
-const {
-  onSubmit,
-  validate,
-}: Pick<FormikConfig<ChangePasswordFormValues>, 'onSubmit' | 'validate'> = {
-  onSubmit: (values, { resetForm }) => {
-    console.log(values);
-    resetForm({ values: initialValues });
-  },
-  validate: (values) => {
-    const errors = {} as ChangePasswordFormErrors;
-    if (isNotDefinedString(values.password)) {
-      errors.password = 'Обязательное поле';
-    }
-    if (isNotDefinedString(values.newPassword)) {
-      errors.newPassword = 'Обязательное поле';
-    }
-    if (isNotDefinedString(values.repeatPassword)) {
-      errors.repeatPassword = 'Обязательное поле';
-    }
-    if (values.password === values.newPassword) {
-      errors.newPassword = 'Новый пароль должен отличаться от старого';
-    }
-    if (values.repeatPassword !== values.newPassword) {
-      errors.newPassword = 'Пароли не совпадают';
-      errors.repeatPassword = 'Пароли не совпадают';
-    }
-    return errors;
-  },
-};
-
 type ChangePasswordFormProps = FormProps<ChangePasswordFormValues>;
 
 export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) => {
-  const formManager = useFormik<ChangePasswordFormValues>({
-    initialValues,
-    onSubmit,
-    validate,
-  });
-
   const {
     values,
     touched,
@@ -69,7 +25,7 @@ export const ChangePasswordForm = memo(({ className }: ChangePasswordFormProps) 
     handleSubmit,
     handleChange,
     submitForm,
-  } = formManager;
+  } = useChangePasswordForm();
 
   const { help: helpPassword } = getValidates(errors.password, touched.password, submitCount);
   const { help: helpNewPassword } = getValidates(

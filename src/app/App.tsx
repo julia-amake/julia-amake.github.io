@@ -1,15 +1,18 @@
-import React from 'react';
-import { ThemeProvider, TranslationsProvider } from 'src/app/providers';
-import { AppRouter } from 'src/app/routing/ui/AppRouter';
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { setIsAppInited } from 'src/app/model/slices/appSlice';
+import { setProductsFromLocalStorage } from 'src/entities/Cart';
+import { useAppDispatch } from 'src/shared/lib/hooks';
 
 function App() {
-  return (
-    <TranslationsProvider>
-      <ThemeProvider>
-        <AppRouter />
-      </ThemeProvider>
-    </TranslationsProvider>
-  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsAppInited(true));
+    dispatch(setProductsFromLocalStorage());
+  }, [dispatch]);
+
+  return <Outlet />;
 }
 
 export default App;

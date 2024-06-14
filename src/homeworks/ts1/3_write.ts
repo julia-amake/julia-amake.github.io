@@ -1,4 +1,6 @@
 import { faker } from '@faker-js/faker';
+import { Category, Product } from 'src/entities/Product';
+import { CategoryName } from 'src/entities/Product/mocks/productsMocks';
 import { categories, products } from 'src/homeworks/ts1/mocks';
 
 /**
@@ -7,45 +9,6 @@ import { categories, products } from 'src/homeworks/ts1/mocks';
  * Поэтому в идеале чтобы функции возвращали случайные данные, но в то же время не абракадабру.
  * В целом сделайте так, как вам будет удобно.
  * */
-
-/**
- * Нужно создать тип Category, он будет использоваться ниже.
- * Категория содержит
- * - id (строка)
- * - name (строка)
- * - photo (строка, необязательно)
- */
-
-export type CategoryName = 'Face' | 'Hair' | 'Body' | 'Makeup' | 'Perfumery';
-
-export interface Category {
-  id: string;
-  name: CategoryName;
-  photo?: string;
-}
-
-/**
- * Продукт (Product) содержит
- * - id (строка)
- * - name (строка)
- * - photo (строка)
- * - desc (строка, необязательно)
- * - createdAt (строка)
- * - oldPrice (число, необязательно)
- * - price (число)
- * - category (Категория)
- */
-
-export interface Product {
-  id: string;
-  name: string;
-  photo: string;
-  desc?: string;
-  createdAt: string;
-  oldPrice?: number;
-  price: number;
-  category: Category;
-}
 
 /**
  * Операция (Operation) может быть либо тратой (Cost), либо доходом (Profit)
