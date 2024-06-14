@@ -151,6 +151,6 @@
     }
   },
   "globals": {
-    "__PUBLIC_PATH__": true
+    "__IS_DEV__": true
   }
 }

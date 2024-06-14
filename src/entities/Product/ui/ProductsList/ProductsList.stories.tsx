@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { getProducts } from 'src/entities/Product/mocks/productsMocks';
+import { getProducts } from '../../mocks/productsMocks';
 import { ProductsList } from './ProductsList';
 
 const meta: Meta<typeof ProductsList> = {

@@ -1,50 +1,22 @@
 import React, { memo } from 'react';
-import { FormikConfig, useFormik } from 'formik/dist';
-import { getValidates, isNotDefinedString } from 'src/shared/lib/utils/validation/common';
+import { getValidates } from 'src/shared/lib/utils/validation/common';
 import { FormProps } from 'src/shared/types/formTypes';
 import { Button } from 'src/shared/ui/Button';
 import { Form } from 'src/shared/ui/Form';
 import { Heading } from 'src/shared/ui/Heading';
 import { TextField } from 'src/shared/ui/TextField';
+import { useProfileForm } from '../../lib/hooks/useProfileForm';
 
 export interface ProfileFormValues {
   name: string;
   about: string;
 }
 
-type ProfileFormErrors = Record<keyof ProfileFormValues, string>;
 type ProfileFormProps = FormProps<ProfileFormValues>;
 
-const {
-  onSubmit,
-  validate,
-  initialValues,
-}: Pick<FormikConfig<ProfileFormValues>, 'onSubmit' | 'validate' | 'initialValues'> = {
-  initialValues: {
-    name: '',
-    about: '',
-  },
-  onSubmit: (values, { resetForm }) => {
-    console.log(values);
-    resetForm({ values: initialValues });
-  },
-  validate: (values) => {
-    const errors = {} as ProfileFormErrors;
-    if (isNotDefinedString(values.name)) {
-      errors.name = 'Обязательное поле';
-    }
-    return errors;
-  },
-};
-
 export const ProfileForm = memo(({ className }: ProfileFormProps) => {
-  const formManager = useFormik<ProfileFormValues>({
-    initialValues,
-    onSubmit,
-    validate,
-  });
-
   const {
+    initialValues,
     values,
     submitForm,
     touched,
@@ -53,7 +25,7 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
     handleBlur,
     handleSubmit,
     handleChange,
-  } = formManager;
+  } = useProfileForm();
 
   const { help: helpName } = getValidates(errors.name, touched.name, submitCount);
   const { help: helpAbout } = getValidates(errors.about, touched.about, submitCount);
@@ -65,7 +37,7 @@ export const ProfileForm = memo(({ className }: ProfileFormProps) => {
       </Heading>
       <TextField
         value={values.name}
-        autoFocus
+        autoFocus={!values.name}
         name="name"
         onChange={handleChange}
         onBlur={handleBlur}

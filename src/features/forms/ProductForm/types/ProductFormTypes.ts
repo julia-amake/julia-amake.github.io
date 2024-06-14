@@ -1,4 +1,4 @@
-import { Product } from 'src/homeworks/ts1/3_write';
+import { Product } from 'src/entities/Product';
 
 export interface ProductFormData extends Omit<Product, 'id' | 'createdAt' | 'category'> {
   categoryId: string;

@@ -1,15 +1,15 @@
 import { useCallback, useMemo, useState } from 'react';
+import { Product } from 'src/entities/Product';
 import { getProducts } from 'src/entities/Product/mocks/productsMocks';
-import { ProductListItemProps } from 'src/entities/Product/ui/ProductListItem';
 
 interface UseProductsListResult {
-  products: ProductListItemProps[] | null;
+  products: Product[] | null;
   isLoading: boolean;
   loadMoreProducts: () => void;
 }
 
 export const useProductsList = (count: number = 12): UseProductsListResult => {
-  const [products, setProducts] = useState<ProductListItemProps[]>(() => getProducts(count));
+  const [products, setProducts] = useState<Product[]>(() => getProducts(count));
   const [isLoading, setIsLoading] = useState(false);
 
   const loadMoreProducts = useCallback(() => {

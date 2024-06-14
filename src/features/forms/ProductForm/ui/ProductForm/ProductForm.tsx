@@ -1,8 +1,9 @@
 import React, { memo, useMemo } from 'react';
 import { FormikConfig, useFormik } from 'formik/dist';
+import { Product } from 'src/entities/Product';
 import { ProductCategorySelect } from 'src/features/forms/ProductForm/ui/ProductCategorySelect';
 import { ProductField } from 'src/features/forms/ProductForm/ui/ProductField';
-import { createRandomProduct, Product } from 'src/homeworks/ts1/3_write';
+import { createRandomProduct } from 'src/homeworks/ts1/3_write';
 import { isNotDefinedString } from 'src/shared/lib/utils/validation/common';
 import { FormProps } from 'src/shared/types/formTypes';
 import { Button } from 'src/shared/ui/Button';
@@ -57,7 +58,7 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
         if (isNotDefinedString(values.categoryId)) {
           errors.categoryId = 'Обязательное поле';
         }
-        if (!values.photo.match(/.+\.(png|jpg|jpeg|gif|woff)/)?.length) {
+        if (!values.photo?.match(/.+\.(png|jpg|jpeg|gif|woff)/)?.length) {
           errors.photo = 'Допустимые форматы изображений: jpg, jpeg, woff, png, gif';
         }
         if (isNotDefinedString(values.photo)) {

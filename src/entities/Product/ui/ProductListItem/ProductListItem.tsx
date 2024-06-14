@@ -1,25 +1,20 @@
 import React, { memo, ReactElement } from 'react';
 import cn from 'clsx';
-import { Category } from 'src/homeworks/ts1/3_write';
+import { Product } from 'src/entities/Product';
 import { formatNumberToLocal } from 'src/shared/lib/utils';
 import { PicWrapper } from 'src/shared/ui/PicWrapper';
 import s from './ProductListItem.module.scss';
 
 export interface ProductListItemProps {
-  id: string;
-  name: string;
-  desc?: string;
-  price: number;
-  oldPrice?: number;
-  photo?: string;
-  category: Category;
-  createdAt: string;
+  product: Product;
   className?: string;
-  cartBtn: ReactElement;
+  renderCartButton: (product: Product) => ReactElement;
 }
 
 export const ProductListItem = memo(
-  ({ name, desc, photo, price, oldPrice, className, cartBtn }: ProductListItemProps) => {
+  ({ product, className, renderCartButton }: ProductListItemProps) => {
+    const { name, desc, photo, price, oldPrice } = product;
+
     return (
       <article className={cn(s.outer, className)}>
         <div className={s.picWrapper}>
@@ -35,7 +30,7 @@ export const ProductListItem = memo(
             {desc && <p className={s.desc}>&nbsp;— {desc}</p>}
           </div>
         </div>
-        <div className={s.cart}>{cartBtn}</div>
+        <div className={s.cart}>{renderCartButton(product)}</div>
       </article>
     );
   }

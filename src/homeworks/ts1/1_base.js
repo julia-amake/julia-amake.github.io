@@ -37,7 +37,8 @@ export const shortColorRegExp = /^#[0-9a-f]{3}$/i;
 export const longColorRegExp = /^#[0-9a-f]{6}$/i;
 
 export const checkColor = (color) => {
-  if (!longColorRegExp.test(color) && !shortColorRegExp.test(color)) throw new Error(`invalid hex color: ${color}`);
+  if (!longColorRegExp.test(color) && !shortColorRegExp.test(color))
+    throw new Error(`invalid hex color: ${color}`);
 };
 
 export const hex2rgb = (color) => {
@@ -59,7 +60,11 @@ export const toStringArray = (arr) => arr.map(({ value, number }) => `${value}_$
 
 export const transformCustomers = (customers) => {
   return customers.reduce((acc, customer) => {
-    acc[customer.id] = { name: customer.name, age: customer.age, isSubscribed: customer.isSubscribed };
+    acc[customer.id] = {
+      name: customer.name,
+      age: customer.age,
+      isSubscribed: customer.isSubscribed,
+    };
     return acc;
   }, {});
 };

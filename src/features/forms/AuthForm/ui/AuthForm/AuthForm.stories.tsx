@@ -2,8 +2,8 @@ import React from 'react';
 import type { Meta } from '@storybook/react';
 import { StoryFn } from '@storybook/react';
 import { FormikConfig, useFormik } from 'formik/dist';
-import { isNotDefinedString } from 'src/shared/lib/utils/validation/common';
-import { AuthForm, AuthFormErrors, AuthFormValues } from './AuthForm';
+import { validate as formValidate } from 'src/widgets/Header/ui/UserBar/lib/utils/validate';
+import { AuthForm, AuthFormValues } from './AuthForm';
 
 const meta: Meta<typeof AuthForm> = {
   title: 'features/forms/AuthForm',
@@ -26,23 +26,7 @@ const {
     console.log(values);
     resetForm({ values: initialValues });
   },
-  validate: (values) => {
-    const errors = {} as AuthFormErrors;
-    if (isNotDefinedString(values.email)) {
-      errors.email = 'Обязательное поле';
-    }
-    if (values.email && !values.email.match(/^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i)?.length) {
-      errors.email = 'Некорректный email';
-    }
-    if (!values.password.match(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/)?.length) {
-      errors.password =
-        'Пароль должен быть не короче 8 символов и содержать хотя бы одну цифру, заглавную и строчную буквы';
-    }
-    if (isNotDefinedString(values.password)) {
-      errors.password = 'Обязательное поле';
-    }
-    return errors;
-  },
+  validate: formValidate,
 };
 
 const Template: StoryFn<typeof AuthForm> = (args) => {

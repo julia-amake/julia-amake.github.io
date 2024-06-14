@@ -1,4 +1,5 @@
-import { Category, CategoryName } from 'src/homeworks/ts1/3_write';
+import { Category } from 'src/entities/Product';
+import { CategoryName } from 'src/entities/Product/mocks/productsMocks';
 
 // export const categories = {
 //   Face: 'https://www.azyaamode.com/files/stories/group0/original/shutterstock_318602609.jpg',

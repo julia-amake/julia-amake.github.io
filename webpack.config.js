@@ -126,7 +126,7 @@ module.exports = (_, args) => {
         },
       }),
       new webpack.DefinePlugin({
-        __PUBLIC_PATH__: JSON.stringify(publicPath),
+        __IS_DEV__: JSON.stringify(isDev),
       }),
       ...(isProd ? [new CssMinimizerWebpackPlugin()] : []),
     ],

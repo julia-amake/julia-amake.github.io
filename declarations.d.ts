@@ -15,4 +15,4 @@ declare module '*.svg' {
 
 type KeyValueOfInterface<Interface> = Interface[keyof Interface];
 
-declare const __PUBLIC_PATH__: string;
+declare const __IS_DEV__: boolean;
