@@ -1,6 +1,8 @@
 import React, { memo, ReactElement } from 'react';
 import cn from 'clsx';
+import { Link } from 'react-router-dom';
 import { Product } from 'src/entities/Product';
+import { getRouteProduct } from 'src/shared/consts/router';
 import { formatNumberToLocal } from 'src/shared/lib/utils';
 import { PicWrapper } from 'src/shared/ui/PicWrapper';
 import s from './ProductListItem.module.scss';
@@ -18,7 +20,9 @@ export const ProductListItem = memo(
     return (
       <article className={cn(s.outer, className)}>
         <div className={s.picWrapper}>
-          <PicWrapper className={s.pic} pic={photo} alt={name} />
+          <Link to={getRouteProduct(product.id)}>
+            <PicWrapper className={s.pic} pic={photo} alt={name} />
+          </Link>
         </div>
         <div className={s.content}>
           <div className={s.prices}>

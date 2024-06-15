@@ -6,10 +6,11 @@ import { Modal } from 'src/shared/ui/Modal';
 
 export const AddProductPage = memo(() => {
   const { isVisible, close } = useModalByRoute(getRouteAddProduct());
+  console.log('page');
 
   return (
     <Modal visible={isVisible} onClose={close}>
-      <ProductForm />
+      <ProductForm onSubmitAction={close} />
     </Modal>
   );
 });

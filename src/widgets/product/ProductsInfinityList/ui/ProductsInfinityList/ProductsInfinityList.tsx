@@ -1,10 +1,14 @@
 import React, { memo, useRef } from 'react';
-import { Product } from 'src/entities/Product';
-import { ProductsList } from 'src/entities/Product/ui/ProductsList';
+import {
+  Product,
+  ProductsList,
+  selectCatalogIsLoading,
+  selectCatalogProductsList,
+} from 'src/entities/Product';
+import { loadMoreProducts } from 'src/entities/Product/model/services/loadMoreProducts';
 import { CartButton } from 'src/features/CartButton/ui/CartButton';
-import { useInfiniteScroll } from 'src/shared/lib/hooks';
+import { useAppDispatch, useAppSelector, useInfiniteScroll } from 'src/shared/lib/hooks';
 import { Button } from 'src/shared/ui/Button';
-import { useProductsList } from '../../lib/hooks/useProductsList';
 import s from '../../styles/ProductsInfinityList.module.scss';
 
 interface ProductsInfinityListProps {
@@ -12,11 +16,18 @@ interface ProductsInfinityListProps {
 }
 
 export const ProductsInfinityList = memo(({ className }: ProductsInfinityListProps) => {
-  const { products, isLoading, loadMoreProducts } = useProductsList();
+  const products = useAppSelector(selectCatalogProductsList);
+  const isLoading = useAppSelector(selectCatalogIsLoading);
+  const dispatch = useAppDispatch();
+
+  const handleLoadMore = () => {
+    if (isLoading) return;
+    dispatch(loadMoreProducts());
+  };
 
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-  useInfiniteScroll({ triggerRef, wrapperRef, action: loadMoreProducts });
+  useInfiniteScroll({ triggerRef, wrapperRef, action: handleLoadMore });
 
   return (
     <div className={className} ref={wrapperRef}>

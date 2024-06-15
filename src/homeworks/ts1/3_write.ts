@@ -60,7 +60,7 @@ interface Profit extends OperationBase {
  * Принимает дату создания (строка)
  * */
 
-const getCategory = (): Category => faker.helpers.arrayElement(categories);
+export const getCategory = (): Category => faker.helpers.arrayElement(categories);
 
 const getProductImage = (category: CategoryName): string =>
   faker.helpers.arrayElement(products[category]);

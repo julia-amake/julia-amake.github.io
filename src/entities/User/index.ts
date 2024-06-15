@@ -13,4 +13,4 @@ export {
   selectUserData,
   selectToken,
 } from './model/slices/userSlice';
-export type { UserRoles } from './model/types/userTypes';
+export type { UserRoles, UserSchema } from './model/types/userTypes';

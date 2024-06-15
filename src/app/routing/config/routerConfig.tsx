@@ -4,6 +4,7 @@ import App from 'src/app/App';
 import { AddProductPage } from 'src/pages/AddProductPage/ui/AddProductPage';
 import { CartPage } from 'src/pages/CartPage/ui/CartPage';
 import { CatalogPage } from 'src/pages/CatalogPage/ui/CatalogPage';
+import { ProductDetailsPage } from 'src/pages/ProductDetailsPage';
 import { ProfileSettingsPage } from 'src/pages/profile/ui/ProfileSettingsPage';
 import {
   getRouteAddProduct,
@@ -37,7 +38,7 @@ export const routerConfig = createHashRouter([
           },
           {
             path: getRouteProduct(':id'),
-            element: 'Карточка товара',
+            element: <ProductDetailsPage />,
           },
           {
             path: getRouteCart(),

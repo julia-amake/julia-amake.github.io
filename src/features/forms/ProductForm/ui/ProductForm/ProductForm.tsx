@@ -1,9 +1,12 @@
 import React, { memo, useMemo } from 'react';
+import { faker } from '@faker-js/faker';
 import { FormikConfig, useFormik } from 'formik/dist';
-import { Product } from 'src/entities/Product';
+import { addProduct, Category, Product } from 'src/entities/Product';
 import { ProductCategorySelect } from 'src/features/forms/ProductForm/ui/ProductCategorySelect';
 import { ProductField } from 'src/features/forms/ProductForm/ui/ProductField';
 import { createRandomProduct } from 'src/homeworks/ts1/3_write';
+import { categories } from 'src/homeworks/ts1/mocks';
+import { useAppDispatch } from 'src/shared/lib/hooks';
 import { isNotDefinedString } from 'src/shared/lib/utils/validation/common';
 import { FormProps } from 'src/shared/types/formTypes';
 import { Button } from 'src/shared/ui/Button';
@@ -25,9 +28,12 @@ const productData: ProductFormData = (() => {
 type ProductFormErrors = Record<keyof ProductFormData, string>;
 interface ProductFormProps extends FormProps<ProductFormData> {
   id?: string;
+  onSubmitAction?: () => void;
 }
 
-export const ProductForm = memo(({ id, className }: ProductFormProps) => {
+export const ProductForm = memo(({ onSubmitAction, id, className }: ProductFormProps) => {
+  const dispatch = useAppDispatch();
+
   const {
     onSubmit,
     validate,
@@ -47,8 +53,17 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
             categoryId: '',
           },
       onSubmit: (values, { resetForm }) => {
-        console.log(values);
+        const { categoryId, ...otherValues } = values;
+        dispatch(
+          addProduct({
+            ...otherValues,
+            id: faker.string.uuid(),
+            createdAt: String(new Date()),
+            category: categories.find((c) => c.id === categoryId) as Category,
+          })
+        );
         resetForm({ values: initialValues });
+        onSubmitAction?.();
       },
       validate: (values) => {
         const errors = {} as ProductFormErrors;
@@ -74,7 +89,7 @@ export const ProductForm = memo(({ id, className }: ProductFormProps) => {
       },
       enableReinitialize: true,
     }),
-    [id]
+    [dispatch, id, onSubmitAction]
   );
 
   const formManager = useFormik<ProductFormData>({
