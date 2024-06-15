@@ -1,9 +1,11 @@
 import React, { memo } from 'react';
 import cn from 'clsx';
+import { selectCatalogIsLoading, selectCatalogProductsList } from 'src/entities/Product';
+import { loadMoreProducts } from 'src/entities/Product/model/services/loadMoreProducts';
 import { ProductsList } from 'src/entities/Product/ui/ProductsList';
 import { CartButton } from 'src/features/CartButton/ui/CartButton';
+import { useAppDispatch, useAppSelector } from 'src/shared/lib/hooks';
 import { Button } from 'src/shared/ui/Button';
-import { useProductsList } from '../../lib/hooks/useProductsList';
 import s from '../../styles/ProductsInfinityList.module.scss';
 
 interface ProductsInfinityListWithButtonProps {
@@ -12,7 +14,15 @@ interface ProductsInfinityListWithButtonProps {
 
 export const ProductsInfinityListWithButton = memo(
   ({ className }: ProductsInfinityListWithButtonProps) => {
-    const { products, isLoading, loadMoreProducts } = useProductsList();
+    const products = useAppSelector(selectCatalogProductsList);
+    const isLoading = useAppSelector(selectCatalogIsLoading);
+
+    const dispatch = useAppDispatch();
+
+    const handleLoadMore = () => {
+      if (isLoading) return;
+      dispatch(loadMoreProducts());
+    };
 
     return (
       <div className={cn(s.outer, className)}>
@@ -25,7 +35,7 @@ export const ProductsInfinityListWithButton = memo(
         <Button
           className={s.button}
           label="Показать еще"
-          onClick={loadMoreProducts}
+          onClick={handleLoadMore}
           variant="secondary"
           size="m"
           disabled={isLoading}

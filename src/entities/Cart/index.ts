@@ -8,3 +8,5 @@ export {
   selectCartProducts,
   selectCartProductsList,
 } from './model/slices/CartSlice';
+
+export type { CartSchema } from './model/types/CartTypes';

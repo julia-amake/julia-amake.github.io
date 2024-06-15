@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { AppSchema } from '../types/appTypes';
 
-const initialState = {
+const initialState: AppSchema = {
   isInited: false,
 };
 

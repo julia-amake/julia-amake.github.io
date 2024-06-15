@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import cn from 'clsx';
+import { Category } from 'src/entities/Product';
 import { formatNumberToLocal } from 'src/shared/lib/utils';
 import { Heading } from 'src/shared/ui/Heading';
 import noImage from 'src/shared/assets/img/no-product.svg?url';
@@ -10,7 +11,7 @@ interface ProductDetailsProps {
   desc?: string;
   price: number;
   pics?: string[];
-  category: string;
+  category: Category;
   cartBtn: ReactElement;
 }
 
@@ -34,8 +35,8 @@ export const ProductDetails = ({
     <div className={s.outer}>
       <div className={s.pics}>{pics?.length ? renderImages : renderPlaceholders}</div>
       <div className={s.info}>
-        <a href="/" className={s.category}>
-          {category}
+        <a href="#" className={s.category}>
+          {category.name}
         </a>
         <Heading className={s.title} as="h1" size="h5">
           {title}

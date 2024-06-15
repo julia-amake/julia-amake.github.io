@@ -16,3 +16,10 @@ export interface Product {
   price: number;
   category: Category;
 }
+
+export type Products = Record<string, Product>;
+
+export interface CatalogSchema {
+  products: Products;
+  isLoading: boolean;
+}
