@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 import cn from 'clsx';
+import { Text } from 'src/shared/ui/Text';
 import s from './TextField.module.scss';
 
 interface TextFieldClassNames {
@@ -90,7 +91,11 @@ export const TextField = memo(
               {...other}
             />
           </div>
-          {errorMessage && <div className={s.error}>{errorMessage}</div>}
+          {errorMessage && (
+            <Text className={s.error} size="s" color="error">
+              {String(errorMessage)}
+            </Text>
+          )}
         </div>
       );
     }
