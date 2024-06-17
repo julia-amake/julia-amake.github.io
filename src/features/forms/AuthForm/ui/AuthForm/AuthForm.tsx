@@ -4,6 +4,7 @@ import { FormProps } from 'src/shared/types/formTypes';
 import { Button } from 'src/shared/ui/Button';
 import { Form } from 'src/shared/ui/Form';
 import { Heading } from 'src/shared/ui/Heading';
+import { Text } from 'src/shared/ui/Text';
 import { TextField } from 'src/shared/ui/TextField';
 
 export type AuthFormValues = {
@@ -27,6 +28,7 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
     handleSubmit,
     handleChange,
     values,
+    status,
   } = formManager;
 
   const { help: helpEmail } = getValidates(errors.email, touched.email, submitCount);
@@ -58,6 +60,11 @@ export const AuthForm = memo(({ formManager, title, className }: AuthFormProps) 
         label="Пароль"
         errorMessage={helpPassword}
       />
+      {status && (
+        <Text size="s" color="error">
+          {status}
+        </Text>
+      )}
       <Button label={title} onClick={submitForm} />
     </Form>
   );

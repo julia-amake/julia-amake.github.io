@@ -10,7 +10,7 @@ import menuStyles from 'src/shared/styles/common/menuList.module.scss';
 import { useUserBarAuth } from '../../lib/hooks/useUserBarAuth';
 import s from './UserBarAuth.module.scss';
 
-type UserBarAuthMode = 'signIn' | 'signUp';
+export type UserBarAuthMode = 'signIn' | 'signUp';
 
 interface UserBarAuthProps {
   className?: string;
@@ -22,9 +22,7 @@ export const UserBarAuth = memo(({ className }: UserBarAuthProps) => {
   const isSingInMode = mode === 'signIn';
   const dispatch = useAppDispatch();
 
-  const handleSubmit = useCallback(() => setIsOpen(false), []);
-
-  const formManager = useUserBarAuth(handleSubmit);
+  const formManager = useUserBarAuth(mode);
 
   useEffect(() => {
     const userToken = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
