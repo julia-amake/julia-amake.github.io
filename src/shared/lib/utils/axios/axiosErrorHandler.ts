@@ -16,6 +16,5 @@ export const errorHandler = <Response = ErrorResponse>(
   const message = isAxiosError(err)
     ? err.response?.data.errors[0]?.message || err.message
     : defaultMassage;
-
-  onError(message);
+  return onError(message);
 };

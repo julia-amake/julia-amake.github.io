@@ -18,7 +18,7 @@ const profileSlice = createSlice({
       state.profileData = null;
     },
   },
-  extraReducers: (builder) =>
+  extraReducers: (builder) => {
     builder
       .addCase(login, (state, { type, payload }) => {
         if (payload) {
@@ -29,7 +29,8 @@ const profileSlice = createSlice({
       })
       .addCase(logout, (state) => {
         profileSlice.caseReducers.resetProfileData(state);
-      }),
+      });
+  },
   selectors: {
     selectProfile: (state) => state.profileData,
   },

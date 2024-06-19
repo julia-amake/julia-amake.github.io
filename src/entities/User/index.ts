@@ -12,5 +12,7 @@ export {
   selectIsAuth,
   selectUserData,
   selectToken,
+  selectAuthLoading,
+  selectAuthError,
 } from './model/slices/userSlice';
 export type { UserRoles, UserSchema } from './model/types/userTypes';
