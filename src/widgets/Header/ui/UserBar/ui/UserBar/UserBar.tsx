@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { selectToken } from 'src/entities/User';
 import { useAppSelector } from 'src/shared/lib/hooks';
+import { UserBarAuthWithQuery } from 'src/widgets/Header/ui/UserBar/ui/UserBarAuth/UserBarAuthWithQuery';
 import { UserBarAuth } from '../UserBarAuth';
 import { UserBarAuthWithThunk } from '../UserBarAuth/UserBarAuthWithThunk';
 import { UserBarMenu } from '../UserBarMenu';
@@ -20,6 +21,7 @@ export const UserBar = memo(({ className }: UserBarProps) => {
         <div className={s.temp}>
           <UserBarAuth />
           <UserBarAuthWithThunk />
+          <UserBarAuthWithQuery />
         </div>
       )}
     </div>

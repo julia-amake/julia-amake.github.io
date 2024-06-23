@@ -3,6 +3,7 @@ import { cartReducer } from 'src/entities/Cart';
 import { catalogReducer } from 'src/entities/Product';
 import { profileReducer, userReducer } from 'src/entities/User';
 import { $api } from 'src/shared/api/api';
+import { rtkApi } from 'src/shared/api/rtkApi';
 import { appReducer } from '../model/slices/appSlice';
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     profile: profileReducer,
     cart: cartReducer,
     catalog: catalogReducer,
+    [rtkApi.reducerPath]: rtkApi.reducer,
   },
   devTools: __IS_DEV__,
   middleware: (getDefaultMiddleware) =>
@@ -21,7 +23,7 @@ export const store = configureStore({
           api: $api,
         },
       },
-    }),
+    }).concat(rtkApi.middleware),
 });
 
 export type AppStore = typeof store;
