@@ -6,8 +6,8 @@ import { LOCAL_STORAGE_TOKEN_KEY } from 'src/shared/consts/localStorage';
 import { useAppDispatch } from 'src/shared/lib/hooks';
 import { Button } from 'src/shared/ui/Button';
 import { Modal } from 'src/shared/ui/Modal';
+import { useUserBarAuthWithSaga } from 'src/widgets/Header/ui/UserBar/lib/hooks/useUserBarAuthWithSaga';
 import menuStyles from 'src/shared/styles/common/menuList.module.scss';
-import { useUserBarAuth } from '../../lib/hooks/useUserBarAuth';
 import s from './UserBarAuth.module.scss';
 
 export type UserBarAuthMode = 'signIn' | 'signUp';
@@ -16,7 +16,7 @@ interface UserBarAuthProps {
   className?: string;
 }
 
-export const UserBarAuth = memo(({ className }: UserBarAuthProps) => {
+export const UserBarAuthWithSaga = memo(({ className }: UserBarAuthProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState<UserBarAuthMode>('signIn');
   const isSingInMode = mode === 'signIn';
@@ -40,7 +40,7 @@ export const UserBarAuth = memo(({ className }: UserBarAuthProps) => {
     setIsOpen(false);
   }, []);
 
-  const formManager = useUserBarAuth(mode, handleClose);
+  const formManager = useUserBarAuthWithSaga(mode, handleClose);
 
   const { setErrors, initialErrors, setStatus, initialStatus } = formManager;
 
@@ -52,10 +52,10 @@ export const UserBarAuth = memo(({ className }: UserBarAuthProps) => {
 
   return (
     <div className={cn(s.outer, className)}>
-      <Button className={menuStyles.link} label="Войти" variant="clean" onClick={handleOpen} />
+      <Button className={menuStyles.link} label="Войти 4" variant="clean" onClick={handleOpen} />
       <Modal visible={isOpen} onClose={handleClose}>
         <AuthForm
-          title={isSingInMode ? 'Вход (axios)' : 'Регистрация (axios)'}
+          title={isSingInMode ? 'Вход (saga)' : 'Регистрация (saga) '}
           formManager={formManager}
         />
         <div className={s.footer}>
@@ -73,4 +73,4 @@ export const UserBarAuth = memo(({ className }: UserBarAuthProps) => {
   );
 });
 
-UserBarAuth.displayName = 'UserBarAuth';
+UserBarAuthWithSaga.displayName = 'UserBarAuthWithSaga';

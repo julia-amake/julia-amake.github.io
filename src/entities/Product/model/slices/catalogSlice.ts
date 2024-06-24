@@ -16,7 +16,7 @@ const catalogSlice = createSlice({
       state.products[payload.id] = payload;
     },
   },
-  extraReducers: (builder) =>
+  extraReducers: (builder) => {
     builder
       .addCase(loadMoreProducts.pending, (state) => {
         state.isLoading = true;
@@ -27,7 +27,8 @@ const catalogSlice = createSlice({
       })
       .addCase(loadMoreProducts.rejected, (state) => {
         state.isLoading = false;
-      }),
+      });
+  },
   selectors: {
     selectCatalogProducts: (state) => state.products,
     selectCatalogProductsList: (state) => Object.values(state.products),

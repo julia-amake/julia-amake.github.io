@@ -8,4 +8,6 @@ export interface UserData {
 export interface UserSchema {
   token: string;
   userData: UserData | null;
+  isLoading?: boolean;
+  error?: string;
 }
