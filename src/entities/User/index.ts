@@ -6,7 +6,10 @@ export {
 } from './model/slices/profileSlice';
 export {
   userReducer,
+  loginFetch,
+  registerFetch,
   login,
+  loginFailed,
   logout,
   setNewPassword,
   selectIsAuth,
