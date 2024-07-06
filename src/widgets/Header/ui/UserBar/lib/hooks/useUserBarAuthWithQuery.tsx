@@ -6,7 +6,7 @@ import { login } from 'src/entities/User';
 import { AuthFormValues } from 'src/features/forms/AuthForm';
 import { useAppDispatch } from 'src/shared/lib/hooks';
 import { useSignInRTKMutation, useSignUpRTKMutation } from '../../api/authApi';
-import { UserBarAuthMode } from '../../ui/UserBarAuth/UserBarAuth';
+import { UserBarAuthMode } from '../../ui/UserBarAuth/UserBarAuthWithQuery';
 
 const initialValues: AuthFormValues = {
   email: '',

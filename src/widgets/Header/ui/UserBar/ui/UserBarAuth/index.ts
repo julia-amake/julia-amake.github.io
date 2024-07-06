@@ -1,1 +1,0 @@
-export { UserBarAuth } from './UserBarAuth';

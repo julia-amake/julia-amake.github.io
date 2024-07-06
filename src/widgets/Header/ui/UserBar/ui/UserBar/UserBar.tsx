@@ -1,10 +1,7 @@
 import React, { memo } from 'react';
 import { selectToken } from 'src/entities/User';
 import { useAppSelector } from 'src/shared/lib/hooks';
-import { UserBarAuthWithQuery } from 'src/widgets/Header/ui/UserBar/ui/UserBarAuth/UserBarAuthWithQuery';
-import { UserBarAuthWithSaga } from 'src/widgets/Header/ui/UserBar/ui/UserBarAuth/UserBarAuthWithSaga';
-import { UserBarAuth } from '../UserBarAuth';
-import { UserBarAuthWithThunk } from '../UserBarAuth/UserBarAuthWithThunk';
+import { UserBarAuthWithQuery } from '../UserBarAuth/UserBarAuthWithQuery';
 import { UserBarMenu } from '../UserBarMenu';
 import s from './UserBar.module.scss';
 
@@ -20,10 +17,7 @@ export const UserBar = memo(({ className }: UserBarProps) => {
       {token && <UserBarMenu />}
       {!token && (
         <div className={s.temp}>
-          <UserBarAuth />
-          <UserBarAuthWithThunk />
           <UserBarAuthWithQuery />
-          <UserBarAuthWithSaga />
         </div>
       )}
     </div>

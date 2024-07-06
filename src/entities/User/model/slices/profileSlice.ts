@@ -1,7 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { signInRTK, signUpRTK } from 'src/widgets/Header/ui/UserBar/api/authApi';
 import { fakeProfileData } from '../../mocks/data';
 import { ProfileData, ProfileSchema } from '../types/profileTypes';
-import { login, logout } from './userSlice';
+import { logout } from './userSlice';
 
 const initialState: ProfileSchema = {
   profileData: null,
@@ -20,15 +21,22 @@ const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(login, (state, { type, payload }) => {
-        if (payload) {
+      .addCase(logout, (state) => {
+        profileSlice.caseReducers.resetProfileData(state);
+      })
+      .addMatcher(signInRTK.matchFulfilled, (state, { type, payload: { token } }) => {
+        if (token) {
           profileSlice.caseReducers.setProfileData(state, { type, payload: fakeProfileData });
         } else {
           profileSlice.caseReducers.resetProfileData(state);
         }
       })
-      .addCase(logout, (state) => {
-        profileSlice.caseReducers.resetProfileData(state);
+      .addMatcher(signUpRTK.matchFulfilled, (state, { type, payload: { token } }) => {
+        if (token) {
+          profileSlice.caseReducers.setProfileData(state, { type, payload: fakeProfileData });
+        } else {
+          profileSlice.caseReducers.resetProfileData(state);
+        }
       });
   },
   selectors: {
