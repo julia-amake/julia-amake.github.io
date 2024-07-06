@@ -1,4 +1,5 @@
 import React, { memo, useContext, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { THEME, Theme } from 'src/shared/consts/theme';
 import { ThemeContext } from 'src/shared/lib/context';
 import { SwitcherElem, SwitcherElems, ToggleSwitch } from 'src/shared/ui/ToggleSwitch';
@@ -13,6 +14,7 @@ interface ThemeSwitcherProps {
 
 export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { t } = useTranslation();
 
   const elems = useMemo((): SwitcherElems => {
     const getElem = (
@@ -36,10 +38,10 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
     };
 
     return {
-      firstElem: getElem(THEME.LIGHT, 'Светлая', IconSun, IconSunFilled),
-      lastElem: getElem(THEME.DARK, 'Темная', IconMoon, IconMoonFilled),
+      firstElem: getElem(THEME.LIGHT, t('Светлая'), IconSun, IconSunFilled),
+      lastElem: getElem(THEME.DARK, t('Темная'), IconMoon, IconMoonFilled),
     };
-  }, [setTheme, theme]);
+  }, [setTheme, t, theme]);
 
   return <ToggleSwitch {...elems} className={className} />;
 });

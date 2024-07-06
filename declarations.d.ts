@@ -16,3 +16,6 @@ declare module '*.svg' {
 type KeyValueOfInterface<Interface> = Interface[keyof Interface];
 
 declare const __IS_DEV__: boolean;
+
+type ValueOf<T> = T[keyof T];
+type KeyOf<T> = keyof T;

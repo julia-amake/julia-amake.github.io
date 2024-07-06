@@ -8,7 +8,7 @@ interface ProductsListProps {
   products: Product[] | null;
   isLoading?: boolean;
   className?: string;
-  renderCartButton: (product: Product) => ReactElement;
+  renderCartButton: (id: string) => ReactElement;
 }
 
 export const ProductsList = memo(

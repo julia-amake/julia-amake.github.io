@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { setIsAppInited } from 'src/app/model/slices/appSlice';
-import { setProductsFromLocalStorage } from 'src/entities/Cart';
+import { setProductsFromLocalStorage } from 'src/features/Cart';
 import { useAppDispatch } from 'src/shared/lib/hooks';
 
 function App() {

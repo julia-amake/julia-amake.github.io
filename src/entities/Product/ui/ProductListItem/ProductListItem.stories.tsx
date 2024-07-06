@@ -2,7 +2,7 @@ import React from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
 import { Product } from 'src/entities/Product';
 import { fakeProduct } from 'src/entities/Product/mocks/productsMocks';
-import { CartButton } from 'src/features/CartButton/ui/CartButton';
+import { CartButton } from 'src/features/Cart';
 import { ProductListItem } from './ProductListItem';
 
 const product: Product = fakeProduct;
@@ -12,7 +12,7 @@ const meta: Meta<typeof ProductListItem> = {
   component: ProductListItem,
   args: {
     product,
-    renderCartButton: () => <CartButton product={product} size={'s'} />,
+    renderCartButton: () => <CartButton id="1" size={'s'} />,
   },
 };
 

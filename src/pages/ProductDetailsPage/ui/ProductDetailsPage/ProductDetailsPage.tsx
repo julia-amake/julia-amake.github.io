@@ -1,28 +1,33 @@
 import React, { memo } from 'react';
 import { useParams } from 'react-router-dom';
-import { selectCatalogProducts } from 'src/entities/Product';
+import { useFetchProductByIdQuery } from 'src/entities/Product';
 import { ProductDetails } from 'src/entities/Product/ui/ProductDetails';
-import { CartButton } from 'src/features/CartButton/ui/CartButton';
-import { useAppSelector } from 'src/shared/lib/hooks';
+import { CartButton } from 'src/features/Cart';
+import { ProductActionsPanel } from 'src/widgets/ProductActionsPanel';
+import s from './ProductDetailsPage.module.scss';
 
 export const ProductDetailsPage = memo(() => {
   const { id } = useParams();
-  console.log(id);
-  const product = useAppSelector(selectCatalogProducts)[id || ''];
+  const { data: product, isLoading, error } = useFetchProductByIdQuery(id || '', { skip: !id });
 
+  if (isLoading) return 'Загружаем данные о товаре...';
+  if (error) return error as string;
   if (!product) return 'Нет такого товара';
 
   const { name, price, category, desc, photo } = product;
 
   return (
-    <ProductDetails
-      title={name}
-      price={price}
-      category={category}
-      desc={desc}
-      {...(photo ? { pics: [photo] } : {})}
-      cartBtn={<CartButton product={product} />}
-    />
+    <div className={s.outer}>
+      <ProductActionsPanel className={s.actions} id={id} />
+      <ProductDetails
+        title={name}
+        price={price}
+        category={category}
+        desc={desc}
+        {...(photo ? { pics: [photo] } : {})}
+        cartBtn={<CartButton id={product.id} />}
+      />
+    </div>
   );
 });
 

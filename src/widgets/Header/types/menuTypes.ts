@@ -1,4 +1,4 @@
-import { getRouteAddProduct, getRouteCart, getRouteCatalog } from 'src/shared/consts/router';
+import { getRouteCart, getRouteCatalog, getRouteCategories } from 'src/shared/consts/router';
 
 interface MenuListItem {
   id: string;
@@ -15,11 +15,11 @@ export const MENU_LIST: MenuListItem[] = [
   },
   {
     id: '2',
-    name: 'Добавить',
-    link: getRouteAddProduct(),
+    name: 'Категории',
+    link: getRouteCategories(),
   },
   {
-    id: '3',
+    id: '4',
     name: 'Корзина',
     link: getRouteCart(),
   },

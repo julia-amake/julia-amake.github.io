@@ -10,7 +10,7 @@ export interface HeadingProps {
   size?: HeadingSizes;
   weight?: HeadingFontWeight;
   uppercase?: boolean;
-  children: string;
+  children: string | string[];
   className?: string;
 }
 

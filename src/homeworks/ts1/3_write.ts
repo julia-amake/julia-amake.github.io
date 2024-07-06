@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Category, Product } from 'src/entities/Product';
 import { CategoryName } from 'src/entities/Product/mocks/productsMocks';
 import { categories, products } from 'src/homeworks/ts1/mocks';
+import { COMMAND_ID } from 'src/shared/consts/api';
 
 /**
  * Функции написанные здесь пригодятся на последующих уроках
@@ -75,6 +76,7 @@ export const createRandomProduct = (createdAt: string): Product => {
     photo: getProductImage(category.name),
     ...(faker.datatype.boolean() ? { description: faker.commerce.productDescription() } : {}),
     createdAt,
+    updatedAt: createdAt,
     ...(faker.datatype.boolean() ? { oldPrice } : {}),
     price: +faker.commerce.price({
       min: oldPrice - oldPrice * 0.5,
@@ -82,6 +84,7 @@ export const createRandomProduct = (createdAt: string): Product => {
       dec: 0,
     }),
     category,
+    commandId: COMMAND_ID,
   };
 };
 
