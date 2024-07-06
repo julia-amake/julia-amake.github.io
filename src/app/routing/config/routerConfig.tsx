@@ -4,15 +4,21 @@ import App from 'src/app/App';
 import { AddProductPage } from 'src/pages/AddProductPage/ui/AddProductPage';
 import { CartPage } from 'src/pages/CartPage/ui/CartPage';
 import { CatalogPage } from 'src/pages/CatalogPage/ui/CatalogPage';
+import { CategoriesPage } from 'src/pages/CategoriesPage';
+import { CategoryDetailsPage } from 'src/pages/CategoryDetailsPage/ui/CategoryDetailsPage';
+import { OrdersPage } from 'src/pages/OrdersPage';
 import { ProductDetailsPage } from 'src/pages/ProductDetailsPage';
 import { ProfileSettingsPage } from 'src/pages/profile/ui/ProfileSettingsPage';
 import {
   getRouteAddProduct,
   getRouteCart,
   getRouteCatalog,
+  getRouteCategories,
+  getRouteCategory,
   getRouteForbidden,
   getRouteMain,
   getRouteNotFound,
+  getRouteOrders,
   getRouteProduct,
   getRouteProfileSettings,
 } from 'src/shared/consts/router';
@@ -37,6 +43,14 @@ export const routerConfig = createHashRouter([
             element: <CatalogPage />,
           },
           {
+            path: getRouteCategories(),
+            element: <CategoriesPage />,
+          },
+          {
+            path: getRouteCategory(':id'),
+            element: <CategoryDetailsPage />,
+          },
+          {
             path: getRouteProduct(':id'),
             element: <ProductDetailsPage />,
           },
@@ -45,13 +59,21 @@ export const routerConfig = createHashRouter([
             element: <CartPage />,
           },
           {
+            path: getRouteOrders(),
+            element: (
+              <RequireAuth>
+                <OrdersPage />
+              </RequireAuth>
+            ),
+          },
+          {
             path: getRouteForbidden(),
             element: <div>У вас нет доступа к этой странице</div>,
           },
           {
             path: getRouteAddProduct(),
             element: (
-              <RequireAuth requiredRoles={['admin']}>
+              <RequireAuth>
                 <AddProductPage />
               </RequireAuth>
             ),

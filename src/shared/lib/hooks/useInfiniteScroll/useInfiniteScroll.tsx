@@ -23,17 +23,20 @@ export const useInfiniteScroll = ({
 
     if (!triggerElement) return;
 
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach(
-        (entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(entry.isIntersecting);
-            action?.();
-          }
-        },
-        { root: wrapperElement }
-      );
-    });
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(
+          (entry) => {
+            if (entry.isIntersecting) {
+              setIsVisible(entry.isIntersecting);
+              action?.();
+            }
+          },
+          { root: wrapperElement }
+        );
+      },
+      { rootMargin: '100px' }
+    );
 
     observer.observe(triggerElement);
 

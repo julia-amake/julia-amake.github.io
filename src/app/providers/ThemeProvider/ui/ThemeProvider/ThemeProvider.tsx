@@ -9,15 +9,16 @@ interface ThemeProviderProps {
   initialTheme?: Theme;
 }
 
-export const ThemeProvider = ({ initialTheme = THEME.LIGHT, children }: ThemeProviderProps) => {
+export const ThemeProvider = ({ initialTheme, children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState(initialTheme);
 
   useEffect(() => {
     const storageTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme;
-    if (containsValue(THEME, storageTheme)) setTheme(storageTheme);
+    setTheme(containsValue(THEME, storageTheme) ? storageTheme : THEME.LIGHT);
   }, []);
 
   useEffect(() => {
+    if (!theme) return;
     const bodyClassNames = document.body.classList;
     localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
     bodyClassNames.remove(...Object.values(THEME));

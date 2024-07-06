@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactNode } from 'react';
 import cn from 'clsx';
 import s from './Text.module.scss';
 
@@ -9,7 +9,7 @@ interface TextProps {
   size?: TextSize;
   color?: TextColor;
   className?: string;
-  children: string;
+  children: ReactNode;
 }
 
 export const Text = memo(({ children, className, size = 'm', color = 'primary' }: TextProps) => {

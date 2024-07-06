@@ -1,3 +1,9 @@
+import {
+  Filter,
+  FilterBaseResponse,
+  SortingField,
+  SortingType,
+} from 'src/shared/types/filterTypes';
 import { CategoryName } from '../../mocks/productsMocks';
 
 export interface Category {
@@ -5,21 +11,44 @@ export interface Category {
   name: CategoryName;
   photo?: string;
 }
-
-export interface Product {
-  id: string;
+export interface ProductParams {
   name: string;
   photo?: string;
   desc?: string;
-  createdAt: string;
   oldPrice?: number;
   price: number;
-  category: Category;
+  categoryId: string;
 }
 
-export type Products = Record<string, Product>;
+export interface Product extends Omit<ProductParams, 'categoryId'> {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  commandId: string;
+  category: Category | null;
+}
 
 export interface CatalogSchema {
-  products: Products;
+  products: Product[] | null;
   isLoading: boolean;
+  error: string;
+  hasMore: boolean;
+  sortingType: SortingType;
+  sortingField: SortingField;
+  currentPage: number;
+  pageSize: number;
+}
+
+export interface ProductsFilters extends Filter {
+  categoryIds?: string[];
+}
+
+export interface ProductsResponse extends FilterBaseResponse {
+  data: Product[];
+}
+
+export interface ProductsRequest extends Omit<ProductsFilters, 'pagination' | 'sorting' | 'ids'> {
+  pagination?: string;
+  sorting?: string;
+  ids?: string;
 }

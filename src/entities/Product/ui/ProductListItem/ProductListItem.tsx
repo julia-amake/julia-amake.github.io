@@ -10,7 +10,7 @@ import s from './ProductListItem.module.scss';
 export interface ProductListItemProps {
   product: Product;
   className?: string;
-  renderCartButton: (product: Product) => ReactElement;
+  renderCartButton: (id: string) => ReactElement;
 }
 
 export const ProductListItem = memo(
@@ -34,7 +34,7 @@ export const ProductListItem = memo(
             {desc && <p className={s.desc}>&nbsp;— {desc}</p>}
           </div>
         </div>
-        <div className={s.cart}>{renderCartButton(product)}</div>
+        <div className={s.cart}>{renderCartButton(product.id)}</div>
       </article>
     );
   }

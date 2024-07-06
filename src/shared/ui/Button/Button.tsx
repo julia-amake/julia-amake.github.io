@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import React, { ButtonHTMLAttributes, forwardRef, memo } from 'react';
 import cn from 'clsx';
 import s from './Button.module.scss';
 
@@ -7,11 +7,11 @@ type ButtonVariant = 'primary' | 'secondary' | 'clean';
 type IconPosition = 'left' | 'right';
 type TextPosition = 'center' | 'left' | 'right';
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /**
    * Текст на кнопке
    */
-  label?: string;
+  label?: string | string[];
   icon?: SVGType;
   iconPosition?: IconPosition;
   iconClassName?: string;
@@ -47,6 +47,7 @@ export const Button = memo(
         disabled,
         onClick,
         className,
+        ...otherProps
       }: ButtonProps,
       ref
     ) => {
@@ -103,6 +104,7 @@ export const Button = memo(
           type="button"
           onClick={() => onClick?.()}
           ref={ref}
+          {...otherProps}
         >
           {buttonInner}
         </button>

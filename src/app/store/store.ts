@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { rootWatcher } from 'src/app/model/sagas/rootWatcher';
-import { cartReducer } from 'src/entities/Cart';
 import { catalogReducer } from 'src/entities/Product';
-import { profileReducer, userReducer } from 'src/entities/User';
+import { logoutListenerMiddleware, userReducer } from 'src/features/Auth';
+import { cartReducer } from 'src/features/Cart';
 import { $api } from 'src/shared/api/api';
 import { rtkApi } from 'src/shared/api/rtkApi';
 import { appReducer } from '../model/slices/appSlice';
@@ -14,7 +14,6 @@ export const store = configureStore({
   reducer: {
     app: appReducer,
     user: userReducer,
-    profile: profileReducer,
     cart: cartReducer,
     catalog: catalogReducer,
     [rtkApi.reducerPath]: rtkApi.reducer,
@@ -27,7 +26,9 @@ export const store = configureStore({
           api: $api,
         },
       },
-    }).concat(rtkApi.middleware, sagaMiddleware),
+    })
+      .concat(rtkApi.middleware, sagaMiddleware)
+      .prepend(logoutListenerMiddleware.middleware),
 });
 
 export type AppStore = typeof store;
