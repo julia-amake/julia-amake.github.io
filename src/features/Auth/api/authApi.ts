@@ -13,7 +13,7 @@ export const authApi = rtkApi.injectEndpoints({
         body: arg,
       }),
       transformErrorResponse,
-      invalidatesTags: [{ type: 'Category' }, { type: 'Product' }, 'Profile', 'Cart'],
+      invalidatesTags: [{ type: 'Category' }, { type: 'Product' }, 'Profile', 'Cart', 'Order'],
     }),
     signUpRTK: build.mutation<AuthResult, AuthFormValues>({
       query: (arg) => ({
@@ -25,7 +25,7 @@ export const authApi = rtkApi.injectEndpoints({
         },
       }),
       transformErrorResponse,
-      invalidatesTags: [{ type: 'Category' }, { type: 'Product' }, 'Profile', 'Cart'],
+      invalidatesTags: [{ type: 'Category' }, { type: 'Product' }, 'Profile', 'Cart', 'Order'],
     }),
   }),
 });
