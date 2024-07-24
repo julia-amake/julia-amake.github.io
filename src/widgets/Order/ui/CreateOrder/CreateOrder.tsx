@@ -19,7 +19,11 @@ export const CreateOrder = memo(({ className }: CreateOrderProps) => {
   const products = useAppSelector(selectCartProductsList());
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { data: profile, error: profileError, isFetching } = useFetchProfileQuery();
+  const {
+    data: profile,
+    error: profileError,
+    isFetching,
+  } = useFetchProfileQuery(undefined, { skip: !products.length });
 
   const handleClick = useCallback(() => {
     createOrder({ products });
