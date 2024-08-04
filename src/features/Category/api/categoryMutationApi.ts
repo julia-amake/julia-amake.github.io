@@ -5,10 +5,19 @@ import { transformErrorResponse } from 'src/shared/lib/utils/axios/axiosErrorHan
 
 const categoryMutationApi = categoriesApi.injectEndpoints({
   endpoints: (build) => ({
-    editCategory: build.mutation<Category, { values: CategoryParams; id?: string }>({
+    createCategory: build.mutation<Category, CategoryParams>({
+      query: (body) => ({
+        url: '/categories',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: [{ type: 'Category' }, { type: 'Product' }],
+      transformErrorResponse,
+    }),
+    editCategory: build.mutation<Category, { values: Partial<CategoryParams>; id: string }>({
       query: ({ values, id }) => ({
-        url: id ? `/categories/${id}` : '/categories',
-        method: id ? 'PUT' : 'POST',
+        url: `/categories/${id}`,
+        method: 'PATCH',
         body: values,
       }),
       invalidatesTags: [{ type: 'Category' }, { type: 'Product' }],
@@ -25,4 +34,5 @@ const categoryMutationApi = categoriesApi.injectEndpoints({
   }),
 });
 
-export const { useEditCategoryMutation, useDeleteCategoryMutation } = categoryMutationApi;
+export const { useCreateCategoryMutation, useEditCategoryMutation, useDeleteCategoryMutation } =
+  categoryMutationApi;

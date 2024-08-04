@@ -3,9 +3,13 @@ import { useFormik } from 'formik';
 import { FormikHelpers } from 'formik/dist';
 import { useFetchCategoryByIdQuery } from 'src/entities/Category/api/categoriesApi';
 import { CategoryParams } from 'src/entities/Category/model/types/categoriesTypes';
-import { useEditCategoryMutation } from 'src/features/Category/api/categoryMutationApi';
-import { getValidates, isNotDefinedString } from 'src/shared/lib/utils/validation/common';
+import {
+  useCreateCategoryMutation,
+  useEditCategoryMutation,
+} from 'src/features/Category/api/categoryMutationApi';
+import { getValidates } from 'src/shared/lib/utils/validation/common';
 import { Button } from 'src/shared/ui/Button';
+import { FileUploader } from 'src/shared/ui/FileUploader';
 import { Form } from 'src/shared/ui/Form';
 import { Heading } from 'src/shared/ui/Heading';
 import { Text } from 'src/shared/ui/Text';
@@ -25,8 +29,10 @@ export const CategoryForm = memo(({ onSubmitAction, id, className }: CategoryFor
     isLoading: categoryLoading,
     error: categoryError,
   } = useFetchCategoryByIdQuery(id || '', { skip: !id });
-  const [editCategory, { isLoading: createCategoryLoading, error: createCategoryError }] =
+  const [editCategory, { isLoading: editCategoryLoading, error: editCategoryError }] =
     useEditCategoryMutation();
+  const [createCategory, { isLoading: createCategoryLoading, error: createCategoryError }] =
+    useCreateCategoryMutation();
 
   const initialValues = useMemo(
     () => ({
@@ -38,28 +44,17 @@ export const CategoryForm = memo(({ onSubmitAction, id, className }: CategoryFor
 
   const onSubmit = useCallback(
     (values: CategoryParams, { resetForm }: FormikHelpers<CategoryParams>) => {
-      editCategory({ values, id });
+      console.log(values);
+      id ? editCategory({ values, id }) : createCategory(values);
       resetForm({ values: initialValues });
       onSubmitAction?.();
     },
-    [editCategory, id, initialValues, onSubmitAction]
+    [createCategory, editCategory, id, initialValues, onSubmitAction]
   );
-
-  const validate = useCallback((values: CategoryParams) => {
-    const errors = {} as CategoryFormErrors;
-    if (isNotDefinedString(values.name)) {
-      errors.name = 'Обязательное поле';
-    }
-    if (values.photo && !values.photo?.match(/.+\.(png|jpg|jpeg|gif|woff)/)?.length) {
-      errors.photo = 'Допустимые форматы изображений: jpg, jpeg, woff, png, gif';
-    }
-    return errors;
-  }, []);
 
   const formManager = useFormik<CategoryParams>({
     initialValues,
     onSubmit,
-    validate,
     enableReinitialize: true,
   });
 
@@ -74,6 +69,7 @@ export const CategoryForm = memo(({ onSubmitAction, id, className }: CategoryFor
     handleBlur,
     handleSubmit,
     handleChange,
+    setFieldValue,
   } = formManager;
 
   useEffect(() => {
@@ -81,6 +77,13 @@ export const CategoryForm = memo(({ onSubmitAction, id, className }: CategoryFor
   }, [createCategoryError, setStatus]);
 
   const { help: helpName } = getValidates(errors.name, touched.name, submitCount);
+
+  const handlePhotoUpdate = useCallback(
+    (photo: string) => {
+      setFieldValue('photo', photo);
+    },
+    [setFieldValue]
+  );
 
   if (categoryLoading) return <Text>Загружаем данные категории...</Text>;
   if (categoryError) return <Text>{categoryError as string}</Text>;
@@ -100,15 +103,7 @@ export const CategoryForm = memo(({ onSubmitAction, id, className }: CategoryFor
         onChange={handleChange}
         {...(category ? { defaultValue: category.name } : { autoFocus: true })}
       />
-      <TextField
-        value={values.photo}
-        name="photo"
-        label="Изображение"
-        errorMessage={errors.photo}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        {...(category ? { defaultValue: category.photo } : {})}
-      />
+      <FileUploader pic={values.photo} picProportion="885/375" onUpload={handlePhotoUpdate} />
       {status && (
         <Text size="s" color="error">
           {status}
@@ -117,7 +112,7 @@ export const CategoryForm = memo(({ onSubmitAction, id, className }: CategoryFor
       <Button
         label="Сохранить"
         onClick={submitForm}
-        disabled={categoryLoading || createCategoryLoading}
+        disabled={categoryLoading || createCategoryLoading || editCategoryLoading}
       />
     </Form>
   );
