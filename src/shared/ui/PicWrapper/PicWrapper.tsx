@@ -16,9 +16,11 @@ export const PicWrapper = ({ pic, defaultPic, alt = '', className }: ProductPicW
 
   return (
     <div className={cn(s.outer, className)}>
-      {!isPicLoading && (
-        <img className={s.pic} src={isPicError ? defaultPic || noProduct : pic} alt={alt} />
-      )}
+      <img
+        className={s.pic}
+        src={isPicError || isPicLoading ? defaultPic || noProduct : pic}
+        alt={alt}
+      />
     </div>
   );
 };
